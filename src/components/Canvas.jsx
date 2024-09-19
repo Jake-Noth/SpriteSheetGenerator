@@ -1,8 +1,6 @@
 import { useContext } from "react"
 import { VideoContext } from "../context/Contex"
 
-
-
 export default function Canvas(){
 
     const {canvasRef} = useContext(VideoContext)

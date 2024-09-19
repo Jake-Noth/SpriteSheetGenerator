@@ -1,4 +1,4 @@
-import { useState, useRef, createContext, useContext } from 'react';
+import { useContext } from 'react';
 import './index.css';
 import FileLoad from './components/FileLoad';
 import { VideoContext } from './context/Contex';

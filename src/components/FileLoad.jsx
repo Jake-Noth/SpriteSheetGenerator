@@ -2,7 +2,6 @@ import { useContext } from "react";
 import { VideoContext } from "../context/Contex";
 import useDrawFirstFrame from "../hooks/DrawFirstFrame";
 
-
 export default function FileLoad(){
 
     const {

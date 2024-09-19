@@ -1,7 +1,6 @@
 import { useContext } from "react";
 import { VideoContext } from "../context/Contex";
 
-
 export default function KeyFrameButton(){
 
     const {videoElement, sliderNum, setFrames, numFrames, frames} = useContext(VideoContext)
