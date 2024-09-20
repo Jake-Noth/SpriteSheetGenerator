@@ -4,7 +4,8 @@ const VideoContext = createContext();
 
 const VideoProvider = ({ children }) => {
   const [videoElement, setVideoElement] = useState(null);
-  const [videoFPS, setVideoFPS] = useState('240');
+  const [framesVideoElement, setFramesVideoElement] = useState(null)
+  const [videoFPS, setVideoFPS] = useState(240);
   const [videoLength, setVideoLength] = useState(null);
   const [numFrames, setNumFrames] = useState(null);
   const [sliderNum, setSliderNum] = useState(0);
@@ -15,6 +16,8 @@ const VideoProvider = ({ children }) => {
   const value = {
     videoElement,
     setVideoElement,
+    framesVideoElement,
+    setFramesVideoElement,
     videoFPS,
     setVideoFPS,
     videoLength,

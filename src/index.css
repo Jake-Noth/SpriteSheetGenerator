@@ -11,24 +11,36 @@
   border: 2px solid black;
 }
 
-
 #canvas-section {
-  width: 100%;
+  width: 50%;
+  height: 100%;
   display: flex;
   justify-content: center;
 }
 
+#canvas-and-frames {
+  display: flex;
+  flex-direction: row;
+}
+
+#frames-section {
+  display:flex;
+  flex-direction: row;
+  width: 50%;
+  height: 100%;
+}
+
 #slider-section {
-  height:200px;
-  width:100%;
+  height: 200px;
+  width: 100%;
   border: 2px solid black;
 }
 
 #options {
   display: flex;
   flex-direction: row;
-  justify-content: space-between; /* Ensures boxes take equal space */
-  align-items: center; /* Aligns boxes vertically */
+  justify-content: space-between;
+  align-items: center;
 }
 
 .box {
@@ -45,28 +57,27 @@
 
 #field-set {
   display: flex;
-  flex-direction: column; /* Stack radio buttons vertically */
-  align-items: flex-start; /* Align items to the start */
+  flex-direction: column;
+  align-items: flex-start;
   border: none;
-  padding: 0; /* Remove padding */
-  margin: 0; /* Remove margin */
+  padding: 0;
+  margin: 0;
 }
 
 #field-set div {
   display: flex;
-  align-items: center; /* Vertically align label and radio button */
-  margin-bottom: 10px; /* Space between each radio button group */
+  align-items: center;
+  margin-bottom: 10px;
 }
 
 input[type='radio'] {
-  transform: scale(1.5); /* Adjust size if needed */
-  margin-right: 10px; /* Space between radio button and label */
+  transform: scale(1.5);
+  margin-right: 10px;
 }
 
 label {
-  font-size: 20px; /* Adjust font size if needed */
+  font-size: 20px;
 }
-
 
 #slider-section {
   display: flex;
@@ -75,22 +86,22 @@ label {
 }
 
 #slider {
-  appearance: none; /* removes browser-specific styling */
-    width: 1000px; /* width of slider */
-    height: 100px; /* height of slider */
-    background: #FF5C35 ; /* orange background */
-    outline: none; /* remove outline */
-    border-radius: 12px; 
-    margin: 0 auto;
+  appearance: none;
+  width: 1000px;
+  height: 100px;
+  background: #FF5C35;
+  outline: none;
+  border-radius: 12px;
+  margin: 0 auto;
 }
 
 #slider::-webkit-slider-thumb {
-  appearance: none; /* removes browser-specific styling */
-  width: 20px; /* handle width */
-  height: 20px; /* handle height */
-  border-radius: 50%; /* make it circular */
-  background: #FFFFFF; /* white color */
-  cursor: pointer; /* cursor on hover */
+  appearance: none;
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  background: #FFFFFF;
+  cursor: pointer;
 }
 
 #keyframe-button {
@@ -104,27 +115,55 @@ label {
   width: 400px;
 }
 
-input[type='radio'] {
-  transform: scale(2.5); /* Make radio buttons bigger */
-  margin-right: 15px;
-}
-
-label {
-  font-size: 28px; /* Larger font size for labels */
-}
-
 legend {
-  font-size: 32px; /* Larger font size for legend */
+  font-size: 32px;
   font-weight: bold;
   margin-bottom: 20px;
 }
 
 #form-content {
   display: flex;
+  height: 100px;
+  width: 100%;
   justify-content: flex-end;
-  padding: 20px; /* Adds space around the upload form */
+  align-items: center;
 }
 
-input {
-  font-size: 50px; /* Enlarges the file upload input */
+#file-upload {
+  font-size: 30px;   /* Increase the font size of the file name text */
+  padding: 10px;     /* Add padding to the input */
+  cursor: pointer;
+}
+
+
+#file-upload::file-selector-button {
+  font-size: 25px;   /* Set font size for the button text */
+  padding: 20px;     /* Add padding to increase the size of the button */
+  background-color: #f0f0f0;  /* Optional: background color */
+  border: 1px solid black;    /* Optional: border */
+  cursor: pointer;
+  margin-right: 30px;
+}
+
+.frame-container {
+  font-size: 16px;
+  margin: 10px;
+}
+
+.frame-item {
+  border: 1px solid #ccc;
+  padding: 10px;
+  margin-bottom: 5px;
+  font-size: 30px;
+}
+
+.no-frames {
+  font-style: italic;
+  color: gray;
+}
+
+.frame-canvas {
+  width: 150px;  /* Set the desired width */
+  height: 200px;  /* Set the desired height */
+  border: 1px solid #ccc; /* Optional: Add a border for better visibility */
 }

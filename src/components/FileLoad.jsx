@@ -7,6 +7,7 @@ export default function FileLoad(){
     const {
         setVideoElement,
         setVideoLength,
+        setFramesVideoElement,
         setSliderNum,
         setNumFrames,
         videoFPS,
@@ -20,29 +21,39 @@ export default function FileLoad(){
     };
 
     const setTheFile = (event) => {
-        const file = event.target.files[0];
-        setSliderNum(0);
-        const videoElement = document.createElement('video');
-        videoElement.src = URL.createObjectURL(file);
-        setVideoElement(videoElement);
-    
-        videoElement.addEventListener('loadedmetadata', () => {
+      const file = event.target.files[0];
+      setSliderNum(0);
+  
+      // Create two video elements
+      const videoElement = document.createElement('video');
+      const secondVideoElement = document.createElement('video');
+  
+      // Set the source for both video elements
+      const videoURL = URL.createObjectURL(file);
+      videoElement.src = videoURL;
+      secondVideoElement.src = videoURL;
+  
+      // Update the context with both video elements
+      setVideoElement(videoElement);
+      setFramesVideoElement(secondVideoElement);
+  
+      // Set up event listener for the first video element
+      videoElement.addEventListener('loadedmetadata', () => {
           setVideoLength(videoElement.duration);
           setNumFrames(videoElement.duration * videoFPS);
           videoElement.currentTime = 0;
-        });
-    
-        drawFirstFrame(videoElement)
-        
-    };
+      });
+  
+      drawFirstFrame(videoElement);
+  };
     
     return(
-        <div id='form-content'>
-        <form onSubmit={handleSubmit}>
+      <div id='form-content'>
+        <form id='input-form' onSubmit={handleSubmit}>
           <input
-            id="input"
-            type='file'
-            accept='video/*'
+            id="file-upload"
+            type="file"
+            accept="video/*"
             onChange={setTheFile}
           />
         </form>

@@ -4,26 +4,28 @@ import useDrawFirstFrame from "../hooks/DrawFirstFrame";
 
 export default function FPSButtons(){
     
-    const FPSOptions = [240, 120, 60]
+    const FPSOptions = [240, 120, 60];
 
-    const {setVideoFPS, setSliderNum, setNumFrames, videoElement, videoFPS, videoLength} = useContext(VideoContext)
+    const { setVideoFPS, setSliderNum, setNumFrames, videoElement, videoFPS, videoLength } = useContext(VideoContext);
 
-    const drawFirstFrame = useDrawFirstFrame()
+    const drawFirstFrame = useDrawFirstFrame();
 
     const changeFPS = (event) => {
-        setVideoFPS(event.target.value);
+        const selectedFPS = parseInt(event.target.value, 10);
+        setVideoFPS(selectedFPS);
         setSliderNum(0);
         if (videoLength) {
-          setNumFrames(event.target.value * videoLength);
+          setNumFrames(selectedFPS * videoLength);
         }
         
-        {videoElement && drawFirstFrame(videoElement)}
-    
+        if (videoElement) {
+          drawFirstFrame(videoElement);
+        }
       };
 
     const radioButton = (FPS) => {
-        return(
-            <div key ={FPS}>
+        return (
+            <div key={FPS}>
               <input 
                 type='radio'
                 id={FPS} 
@@ -34,13 +36,13 @@ export default function FPSButtons(){
               />
               <label htmlFor={FPS}>{FPS}</label>
             </div>
-        )
-    }
+        );
+    };
     
-    return(
+    return (
         <fieldset id='field-set'>
           <legend>Select the fps of the video selected</legend>
             {FPSOptions.map((FPS) => radioButton(FPS))}
         </fieldset>
-    )
+    );
 }
