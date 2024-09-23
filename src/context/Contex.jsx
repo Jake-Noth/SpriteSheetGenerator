@@ -12,6 +12,8 @@ const VideoProvider = ({ children }) => {
   const [frames, setFrames] = useState([]);
   const canvasRef = useRef(null);
   const ctxRef = useRef(null);
+  const [canvasHeight, setCanvasHeight] = useState(null)
+  const [canvasWidth, setCanvasWidth] = useState(null)
 
   const value = {
     videoElement,
@@ -29,7 +31,11 @@ const VideoProvider = ({ children }) => {
     frames,
     setFrames,
     canvasRef,
-    ctxRef
+    ctxRef,
+    setCanvasHeight,
+    setCanvasWidth,
+    canvasHeight,
+    canvasWidth
   };
 
   return (

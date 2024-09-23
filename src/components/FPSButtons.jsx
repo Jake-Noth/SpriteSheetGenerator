@@ -6,7 +6,8 @@ export default function FPSButtons(){
     
     const FPSOptions = [240, 120, 60];
 
-    const { setVideoFPS, setSliderNum, setNumFrames, videoElement, videoFPS, videoLength } = useContext(VideoContext);
+    const { setVideoFPS, setSliderNum, setNumFrames, videoElement, videoFPS, videoLength, canvasHeight,
+      canvasWidth } = useContext(VideoContext);
 
     const drawFirstFrame = useDrawFirstFrame();
 
@@ -19,7 +20,7 @@ export default function FPSButtons(){
         }
         
         if (videoElement) {
-          drawFirstFrame(videoElement);
+          drawFirstFrame(videoElement, canvasWidth, canvasHeight);
         }
       };
 

@@ -11,21 +11,31 @@
   border: 2px solid black;
 }
 
-#canvas-section {
+#canvas-section-and-modifiers {
   width: 50%;
   height: 100%;
   display: flex;
   justify-content: center;
+  flex-direction: column;
+  border: 10px solid blue;
+}
+
+#canvas-section {
+  display: flex;
+  justify-content: center;
+  border: 2px solid red;
 }
 
 #canvas-and-frames {
   display: flex;
   flex-direction: row;
+  height: 100%;
 }
 
 #frames-section {
   width: 50%;
   height: 100%;
+  border-left: 2px solid black;
 }
 
 #frames {
@@ -38,7 +48,7 @@
 #slider-section {
   height: 200px;
   width: 100%;
-  border: 2px solid black;
+  border: 2px solid blueviolet;
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -130,6 +140,7 @@ legend {
   width: 100%;
   justify-content: flex-end;
   align-items: center;
+  border: 2px solid black;
 }
 
 #file-upload {

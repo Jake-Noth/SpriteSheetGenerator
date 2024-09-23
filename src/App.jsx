@@ -18,26 +18,24 @@ function App() {
       <FileLoad/>
 
       <div id="canvas-and-frames">
-        <div id='canvas-section'>
-          {videoElement && <Canvas/>}
+        <div id='canvas-section-and-modifiers'>
+          <div id='canvas-section'>
+            {videoElement && <Canvas/>}
+          </div>
+          <div id='modifiers'>
+            <div id='slider-section'>
+              <h1 id='spacer'></h1>
+                {videoElement && <Slider/>}
+                {videoElement && <KeyFrameButton/>}
+            </div>
+            <div id='modifier-buttons'>
+              <FPSButtons/>
+            </div>
+          </div>
         </div>
         
         <div id='frames-section'>
           {videoElement && frames && <SelectedFrames/>}
-        </div>
-      </div>
-
-      <div id='slider-section'>
-        <h1 id='spacer'></h1>
-        {videoElement && <Slider/>}
-        {videoElement && <KeyFrameButton/>}
-      </div>
-
-      <div id="options">
-        <div className='box'></div>
-        <div className='box'></div>
-        <div className='box'>
-          <FPSButtons/>
         </div>
       </div>
     </>

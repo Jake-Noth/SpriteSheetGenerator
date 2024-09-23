@@ -6,15 +6,15 @@ export default function useDrawFirstFrame(){
 
     const {canvasRef, ctxRef} = useContext(VideoContext)
 
-    const drawFirstFrame = (videoElement) => {
+    const drawFirstFrame = (videoElement, finalWidth, finalHeight) => {
 
         videoElement.currentTime = 0;
         videoElement.addEventListener('seeked', () => {
-            drawCanvas(videoElement);
+            drawCanvas(videoElement, finalWidth, finalHeight);
         });
     }
     
-    const drawCanvas = (videoElement) => {
+    const drawCanvas = (videoElement, width, height) => {
     
         const canvas = canvasRef.current;
     
@@ -22,10 +22,10 @@ export default function useDrawFirstFrame(){
         const ctx = canvas.getContext('2d');
         ctxRef.current = ctx;
     
-        canvas.width = videoElement.videoWidth;
-        canvas.height = videoElement.videoHeight;
+        canvas.width = width;
+        canvas.height = height;
     
-        ctx.drawImage(videoElement, 0, 0, videoElement.videoWidth, videoElement.videoHeight);
+        ctx.drawImage(videoElement, 0, 0, width, height);
         } else {
         console.error("Canvas element not found.");
         }
