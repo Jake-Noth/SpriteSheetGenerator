@@ -1,4 +1,4 @@
-import { useContext, useRef, useEffect, useState } from "react";
+import { useContext, useRef, useEffect } from "react";
 import { VideoContext } from "../context/Contex";
 
 export default function SelectedFrames() {
@@ -11,18 +11,20 @@ export default function SelectedFrames() {
             if (canvas) {
                 const ctx = canvas.getContext('2d');
                 const aspectRatio = framesVideoElement.videoWidth / framesVideoElement.videoHeight;
-                const canvasWidth = framesVideoElement.videoWidth / 2;
+                const canvasWidth = framesVideoElement.videoWidth / 10;
                 const canvasHeight = canvasWidth / aspectRatio;
 
+                // Set canvas size
                 canvas.width = canvasWidth;
                 canvas.height = canvasHeight;
+
+                // Log sizes for debugging
+                console.log(`Canvas ${index} - Width: ${canvasWidth}, Height: ${canvasHeight}`);
 
                 const frame = frames[index];
 
                 if (frame.value == null) {
                     framesVideoElement.currentTime = frame.frameFloat;
-
-                    // Wait for the video to seek
                     await new Promise(resolve => {
                         const onSeeked = () => {
                             framesVideoElement.removeEventListener('seeked', onSeeked);
@@ -34,7 +36,6 @@ export default function SelectedFrames() {
                     ctx.drawImage(framesVideoElement, 0, 0, canvasWidth, canvasHeight);
                     const dataURL = canvas.toDataURL('image/png');
                     
-                    // Safely update the state by copying the array
                     setFrames(prevFrames => {
                         const updatedFrames = [...prevFrames];
                         updatedFrames[index] = { ...updatedFrames[index], value: dataURL };
@@ -56,12 +57,11 @@ export default function SelectedFrames() {
     }, [frames, framesVideoElement]);
 
     return (
-        <div>
+        <div id='frames'>
             {frames.map((frame, index) => (
                 <canvas
                     key={index}
                     ref={el => canvasRefs.current[index] = el}
-                    style={{ border: '1px solid black', margin: '10px' }}
                 />
             ))}
         </div>

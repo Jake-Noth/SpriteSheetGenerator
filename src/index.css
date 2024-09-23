@@ -24,16 +24,24 @@
 }
 
 #frames-section {
-  display:flex;
-  flex-direction: row;
   width: 50%;
   height: 100%;
+}
+
+#frames {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start; /* Keeps frames at the start */
+  align-items: stretch; /* Allows frames to stretch to fill the container */
 }
 
 #slider-section {
   height: 200px;
   width: 100%;
   border: 2px solid black;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 }
 
 #options {
@@ -79,11 +87,6 @@ label {
   font-size: 20px;
 }
 
-#slider-section {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-}
 
 #slider {
   appearance: none;
