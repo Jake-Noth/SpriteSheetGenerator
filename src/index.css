@@ -129,3 +129,28 @@ html, body {
   overflow-y: auto;
 }
 
+#frame {
+  display: flex;
+  flex-direction: row;
+  margin-top: 0.5vh;
+  margin-bottom: 0.5vh;
+  align-items: center;
+}
+
+#frame-button {
+  margin-left: 1vh;
+  margin-right:1vh;
+  height: 2.2vh;
+  width: 2.2vh;
+  background-image: url('/delete-button.png'); /* Corrected syntax */
+  background-size: contain; /* Adjust to fit the button */
+  background-repeat: no-repeat; /* Prevents the image from repeating */
+  background-position: center; /* Centers the image in the button */
+  border: none; /* Remove default border if needed */
+  cursor: pointer; /* Changes cursor to pointer when hovering */
+}
+
+#frame-button-time {
+  font-size: 1.2vh;
+}
+

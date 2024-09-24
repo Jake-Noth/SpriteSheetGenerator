@@ -1,10 +1,11 @@
-import { useContext, useRef, useEffect } from "react";
+import { useContext, useRef, useEffect, useState } from "react";
 import { VideoContext } from "../context/Contex";
 import { debounce } from "lodash";
 
 export default function SelectedFrames() {
     const { frames, setFrames, framesVideoElement, canvasHeight, canvasWidth } = useContext(VideoContext);
     const canvasRefs = useRef([]);
+    const [loadedFrames, setLoadedFrames] = useState([]); // Track which frames are loaded
 
     const drawFrame = async (index) => {
         const canvas = canvasRefs.current[index];
@@ -15,7 +16,6 @@ export default function SelectedFrames() {
             const scaledDownCanvasWidth = canvasWidth / 2;
             const scaledDownCanvasHeight = scaledDownCanvasWidth / aspectRatio;
 
-            // Set canvas size
             canvas.width = scaledDownCanvasWidth;
             canvas.height = scaledDownCanvasHeight;
 
@@ -46,15 +46,27 @@ export default function SelectedFrames() {
                     ctx.drawImage(img, 0, 0, scaledDownCanvasWidth, scaledDownCanvasHeight);
                 };
             }
+
+            setLoadedFrames(prev => {
+                const updatedLoadedFrames = [...prev];
+                updatedLoadedFrames[index] = true;
+                return updatedLoadedFrames;
+            });
         }
     };
 
-    // Debounced function to draw frames
+    const deleteFrame = (index => {
+        const newFrames = [...frames];
+        newFrames.splice(index, 1);
+        setFrames(newFrames);
+        setLoadedFrames(prev => prev.filter((_, i) => i !== index)); // Remove loaded status for deleted frame
+    });
+
     const debouncedDrawFrames = debounce(() => {
         canvasRefs.current.forEach((_, index) => {
             drawFrame(index);
         });
-    }, 200); // Adjust the delay as needed
+    }, 200);
 
     useEffect(() => {
         debouncedDrawFrames();
@@ -67,6 +79,14 @@ export default function SelectedFrames() {
                     <canvas
                         ref={el => canvasRefs.current[index] = el}
                     />
+                    {loadedFrames[index] && (
+                        <>
+                            <button id='frame-button' onClick={() => deleteFrame(index)}></button>
+                            <span id='frame-button-time'>
+                                {Number(frame.frameFloat.toFixed(1))} Seconds
+                            </span>
+                        </>
+                    )}
                 </div>
             ))}
         </div>
