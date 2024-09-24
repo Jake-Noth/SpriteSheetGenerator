@@ -23,10 +23,16 @@ function App() {
             {videoElement && <Canvas/>}
           </div>
           <div id='modifiers'>
-            <div id='slider-section'>
-              <h1 id='spacer'></h1>
-                {videoElement && <Slider/>}
+            <div id='slider-and-frame-button-container'>
+
+                <div id='slider-container'>
+                  {videoElement && <Slider/>}
+                </div>
+
+                <div id='frame-button-container'>
                 {videoElement && <KeyFrameButton/>}
+                </div>
+
             </div>
             <div id='modifier-buttons'>
               <FPSButtons/>
@@ -43,3 +49,4 @@ function App() {
 }
 
 export default App;
+
