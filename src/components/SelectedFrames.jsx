@@ -3,12 +3,13 @@ import { VideoContext } from "../context/Contex";
 import { debounce } from "lodash";
 
 export default function SelectedFrames() {
-    const { frames, setFrames, framesVideoElement, canvasHeight, canvasWidth } = useContext(VideoContext);
+    const { frames, setFrames, framesVideoElement, canvasHeight, canvasWidth, orderByTime } = useContext(VideoContext);
     const canvasRefs = useRef([]);
     const [loadedFrames, setLoadedFrames] = useState([]); // Track which frames are loaded
 
-    const drawFrame = async (index) => {
-        const canvas = canvasRefs.current[index];
+    const drawFrame = async (index, canvasIndex) => {
+        console.log(index)
+        const canvas = canvasRefs.current[canvasIndex];
         if (canvas) {
             const ctx = canvas.getContext('2d');
 
@@ -63,14 +64,25 @@ export default function SelectedFrames() {
     });
 
     const debouncedDrawFrames = debounce(() => {
+
+        const newFrames = [...frames]
+        newFrames.sort((a, b) => a.frameFloat - b.frameFloat);
+        
+
         canvasRefs.current.forEach((_, index) => {
-            drawFrame(index);
+
+            if(!orderByTime){
+                drawFrame(index, index);
+            }else{
+                const key = newFrames[index].frameFloat
+                drawFrame(frames.findIndex(frame => frame.frameFloat === key), index)
+            }
         });
     }, 200);
 
     useEffect(() => {
         debouncedDrawFrames();
-    }, [frames, framesVideoElement, canvasHeight, canvasWidth]);
+    }, [frames, framesVideoElement, canvasHeight, canvasWidth, orderByTime]);
 
     return (
         <div id='frames-container'>

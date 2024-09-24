@@ -8,6 +8,7 @@ import KeyFrameButton from './components/KeyFrameButton';
 import FPSButtons from './components/FPSButtons';
 import SelectedFrames from './components/SelectedFrames';
 import useResizeHandler from './hooks/ScreenChange';
+import SortFrameByTime from './components/FrameSortButton';
 
 function App() {
   const { videoElement, frames } = useContext(VideoContext);
@@ -19,24 +20,33 @@ function App() {
         
       <div id="canvas-and-frames">
         <div id='canvas-section-and-modifiers'>
+          
           <div id='canvas-section'>
             {videoElement && <Canvas/>}
           </div>
-          <div id='modifiers'>
+          
+          <div id='modifiers-container'>
             <div id='slider-and-frame-button-container'>
+              <div id='slider-container'>
+                {videoElement && <Slider/>}
+              </div>
 
-                <div id='slider-container'>
-                  {videoElement && <Slider/>}
-                </div>
-
-                <div id='frame-button-container'>
+              <div id='frame-button-container'>
                 {videoElement && <KeyFrameButton/>}
-                </div>
+              </div> 
+            </div>
+
+            <div id='modifier-buttons-container'>
+              <FPSButtons/>
+              <SortFrameByTime/>
+            </div>
+
+            <div id='submit-button-container'>
 
             </div>
-            <div id='modifier-buttons'>
-              <FPSButtons/>
-            </div>
+            
+              
+  
           </div>
         </div>
         
@@ -52,4 +62,3 @@ function App() {
 }
 
 export default App;
-

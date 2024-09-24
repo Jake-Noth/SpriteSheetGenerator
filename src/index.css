@@ -38,11 +38,20 @@ html, body {
 #canvas-section {
   display: flex;
   justify-content: center;
+  height: 70%
+  
+}
+
+#modifiers-container {
+  display: flex;
+  flex-direction: column;
+  height: 30%
 }
 
 #slider-and-frame-button-container {
   padding: 15px;
   width: 100%;
+  height: 30%;
   display: flex;
   flex-direction: row;
   border-bottom: 5px solid black;
@@ -89,8 +98,11 @@ html, body {
   font-size: .75vw;
 }
 
-#modifier-buttons {
-
+#modifier-buttons-container {
+  display: flex;
+  flex-direction: row;
+  border: 2px solid black;
+  height: 50%;
 }
 
 #fps-buttons {
@@ -101,6 +113,32 @@ html, body {
 
 #fps-buttons legend {
   font-size: 1.5vh; /* Increase size of the legend text */
+}
+
+#order-frame-container {
+  margin-left: 1vh;
+  padding-left: 1vh;
+  padding-right: 1vh;
+  height:100%;
+  border-left: 5px solid black;
+  border-right: 5px solid black;
+}
+
+#order-frame-label {
+  font-size: 1.5vh;
+  display: flex;
+  align-items: center; 
+}
+
+#order-frame-input {
+    width: 1.5vh; /* Adjust width */
+    height: 1.5vh; /* Adjust height */
+    margin-left: 8px;
+}
+
+#submit-button-container {
+  height: 20%;
+  border: 2px solid black;
 }
 
 #frames-and-upload-section {
@@ -153,4 +191,6 @@ html, body {
 #frame-button-time {
   font-size: 1.2vh;
 }
+
+
 
