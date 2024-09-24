@@ -4,8 +4,13 @@
   box-sizing: border-box;
 }
 
-body {
+html, body {
+  height: 100vh;
   background-color: #f2f2f2;
+}
+
+#root {
+  height: 100%;
 }
 
 #topHeader {
@@ -15,98 +20,53 @@ body {
   border: 2px solid black;
 }
 
+#file-upload-container {
+  height: 2vh;
+  display: flex;
+  justify-content: end;
+}
+
+#file-upload {
+  font-size: 1.5vh;
+  padding: 10px;
+  width: 100%;
+}
+
+#canvas-and-frames {
+  display: flex;
+  width: 100%;
+  flex-direction: row;
+  height: 100%;
+}
+
 #canvas-section-and-modifiers {
   display: flex;
-  justify-content: center;
+  height: 100%;
+  width: 50%;
   flex-direction: column;
-  border: 10px solid blue;
+  border: 5px solid black;
 }
 
 #canvas-section {
   display: flex;
   justify-content: center;
-  border: 2px solid red;
-}
-
-#canvas-and-frames {
-  display: flex;
-  flex-direction: row;
-  height: 100%;
-}
-
-#frames-section {
-  width: 50%;
-  height: 100%;
-  border-left: 2px solid black;
-}
-
-#frames {
-  display: flex;
-  flex-direction: column;
-  justify-content: flex-start; /* Keeps frames at the start */
-  align-items: stretch; /* Allows frames to stretch to fill the container */
 }
 
 #slider-and-frame-button-container {
   padding: 15px;
-  
-  width: 50vw;
-  border: 2px solid blueviolet;
+  width: 100%;
   display: flex;
   flex-direction: row;
-}
-
-.box {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  height: 300px;
-  width: calc(100vw / 3);
-  border: 2px solid black;
-  padding: 20px;
-  box-sizing: border-box;
-}
-
-#field-set {
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-  border: none;
-  padding: 0;
-  margin: 0;
-}
-
-#field-set div {
-  display: flex;
-  align-items: center;
-  margin-bottom: 10px;
-}
-
-input[type='radio'] {
-  transform: scale(1.5);
-  margin-right: 10px;
-}
-
-label {
-  font-size: 20px;
+  border-bottom: 5px solid black;
 }
 
 #slider-container {
-  width: calc(50vw * (2 / 3));
+  width: 66%;
   padding-left: 20px;
   display: flex;
   justify-content: center;
   align-items: center;
 }
-
-#frame-button-container {
-  width: calc(50vw * (1/3));
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-
 
 #slider {
   appearance: none;
@@ -127,66 +87,43 @@ label {
   cursor: pointer;
 }
 
+#frame-button-container {
+  width: 33%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
 #keyframe-button {
   height: 50%;
   width: 50%;
   font-size: .75vw;
 }
 
-#spacer {
-  width: 400px;
+#modifier-buttons {
+
 }
 
-legend {
-  font-size: 32px;
-  font-weight: bold;
-  margin-bottom: 20px;
+#fps-buttons {
+  font-size: 1.5vh; /* Increase font size */
+  border: none;    /* Remove border */
+  padding: 10px;   /* Optional: add some padding */
 }
 
-#form-content {
+#fps-buttons legend {
+  font-size: 1.5vh; /* Increase size of the legend text */
+}
+
+#frames-section {
+  width: 50%;
+  height: 100%;
+  border: 5px solid black;
+}
+
+#frames {
   display: flex;
-  height: 100px;
-  width: 100%;
-  justify-content: flex-end;
-  align-items: center;
-  border: 2px solid black;
+  flex-direction: column;
+  justify-content: flex-start; /* Keeps frames at the start */
+  align-items: stretch; /* Allows frames to stretch to fill the container */
 }
 
-#file-upload {
-  font-size: 30px;   /* Increase the font size of the file name text */
-  padding: 10px;     /* Add padding to the input */
-  cursor: pointer;
-}
-
-
-#file-upload::file-selector-button {
-  font-size: 25px;   /* Set font size for the button text */
-  padding: 20px;     /* Add padding to increase the size of the button */
-  background-color: #f0f0f0;  /* Optional: background color */
-  border: 1px solid black;    /* Optional: border */
-  cursor: pointer;
-  margin-right: 30px;
-}
-
-.frame-container {
-  font-size: 16px;
-  margin: 10px;
-}
-
-.frame-item {
-  border: 1px solid #ccc;
-  padding: 10px;
-  margin-bottom: 5px;
-  font-size: 30px;
-}
-
-.no-frames {
-  font-style: italic;
-  color: gray;
-}
-
-.frame-canvas {
-  width: 150px;  /* Set the desired width */
-  height: 200px;  /* Set the desired height */
-  border: 1px solid #ccc; /* Optional: Add a border for better visibility */
-}

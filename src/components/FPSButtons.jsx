@@ -41,7 +41,7 @@ export default function FPSButtons(){
     };
     
     return (
-        <fieldset id='field-set'>
+        <fieldset id='fps-buttons'>
           <legend>Select the fps of the video selected</legend>
             {FPSOptions.map((FPS) => radioButton(FPS))}
         </fieldset>

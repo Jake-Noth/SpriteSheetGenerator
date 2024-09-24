@@ -7,16 +7,16 @@ import Slider from './components/Slider';
 import KeyFrameButton from './components/KeyFrameButton';
 import FPSButtons from './components/FPSButtons';
 import SelectedFrames from './components/SelectedFrames';
+import useResizeHandler from './hooks/ScreenChange';
 
 function App() {
   const { videoElement, frames } = useContext(VideoContext);
+  useResizeHandler();
 
   return (
     <>
       <h1 id="topHeader">Sprite Gen</h1>
-
-      <FileLoad/>
-
+        
       <div id="canvas-and-frames">
         <div id='canvas-section-and-modifiers'>
           <div id='canvas-section'>
@@ -41,6 +41,9 @@ function App() {
         </div>
         
         <div id='frames-section'>
+          <div id='file-upload-container'>
+            <FileLoad/>
+          </div>
           {videoElement && frames && <SelectedFrames/>}
         </div>
       </div>
