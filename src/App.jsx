@@ -40,7 +40,7 @@ function App() {
           </div>
         </div>
         
-        <div id='frames-section'>
+        <div id='frames-and-upload-section'>
           <div id='file-upload-container'>
             <FileLoad/>
           </div>

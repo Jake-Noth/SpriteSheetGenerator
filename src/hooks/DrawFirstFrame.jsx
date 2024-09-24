@@ -41,7 +41,6 @@ export default function useDrawFirstFrame(){
         const naturalVidWidth = videoElement.videoWidth;
         let finalWidth, finalHeight;
       
-        // Check if the video is larger than the container; only scale down
         if (naturalVidWidth > divWidth) {
           const scalingFactor = divWidth / naturalVidWidth;
           finalHeight = naturalVidHeight * scalingFactor;
@@ -54,8 +53,7 @@ export default function useDrawFirstFrame(){
           setCanvasHeight(finalHeight)
           setCanvasWidth(finalWidth)
         }
-      
-        // Pass these dimensions directly to drawFirstFrame
+
        return [finalWidth, finalHeight];
       }
 

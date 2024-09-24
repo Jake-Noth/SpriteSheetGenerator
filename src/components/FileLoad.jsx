@@ -10,6 +10,7 @@ export default function FileLoad(){
         setSliderNum,
         setNumFrames,
         videoFPS,
+        setFramesVideoElement,
     } = useContext(VideoContext)
 
     const drawFirstFrame = useDrawFirstFrame()
@@ -22,9 +23,16 @@ export default function FileLoad(){
     const setTheFile = (event) => {
         const file = event.target.files[0];
         setSliderNum(0);
+
         const videoElement = document.createElement('video');
-        videoElement.src = URL.createObjectURL(file);
+        const secondVideoElement = document.createElement('video');
+
+        const videoURL = URL.createObjectURL(file);
+        videoElement.src = videoURL;
+        secondVideoElement.src = videoURL;
+
         setVideoElement(videoElement);
+        setFramesVideoElement(secondVideoElement)
     
         videoElement.addEventListener('loadedmetadata', () => {
           setVideoLength(videoElement.duration);
