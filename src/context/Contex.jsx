@@ -16,6 +16,7 @@ const VideoProvider = ({ children }) => {
   const [canvasHeight, setCanvasHeight] = useState(null)
   const [canvasWidth, setCanvasWidth] = useState(null)
   const [orderByTime, setOrderByTime] = useState(true)
+  const [canvasRefs, setCanvasRefs] = useState([]);
 
   const value = {
     videoElement,
@@ -39,7 +40,9 @@ const VideoProvider = ({ children }) => {
     canvasHeight,
     canvasWidth,
     orderByTime, 
-    setOrderByTime
+    setOrderByTime,
+    canvasRefs,
+    setCanvasRefs,
   };
 
   return (

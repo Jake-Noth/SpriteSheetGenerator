@@ -9,6 +9,7 @@ import FPSButtons from './components/FPSButtons';
 import SelectedFrames from './components/SelectedFrames';
 import useResizeHandler from './hooks/ScreenChange';
 import SortFrameByTime from './components/FrameSortButton';
+import ResetButton from './components/ResetButton';
 
 function App() {
   const { videoElement, frames } = useContext(VideoContext);
@@ -54,7 +55,12 @@ function App() {
           <div id='file-upload-container'>
             <FileLoad/>
           </div>
-          {videoElement && frames && <SelectedFrames/>}
+
+          <SelectedFrames/>
+          
+          <div id='reset-button-div'>
+            <ResetButton/>
+          </div>
         </div>
       </div>
     </>

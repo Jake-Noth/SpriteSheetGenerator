@@ -101,7 +101,7 @@ html, body {
 #modifier-buttons-container {
   display: flex;
   flex-direction: row;
-  border: 2px solid black;
+  border-bottom: 5px solid black;
   height: 50%;
 }
 
@@ -138,10 +138,11 @@ html, body {
 
 #submit-button-container {
   height: 20%;
-  border: 2px solid black;
 }
 
 #frames-and-upload-section {
+  display: flex;
+  flex-direction: column;
   width: 50%;
   height: 100%;
   border: 5px solid black;
@@ -162,7 +163,7 @@ html, body {
 
 #frames-container {
   display: flex;
-  height: 96.5%;
+  height: 92.5%;
   flex-direction: column;
   overflow-y: auto;
 }
@@ -190,6 +191,21 @@ html, body {
 
 #frame-button-time {
   font-size: 1.2vh;
+}
+
+#reset-button-div {
+  display: flex;
+  justify-content: end;
+  align-items: center;
+  border-top: 5px solid black;
+  height: 4%;
+}
+
+#reset-frame-button {
+  margin-right: 3vh;
+  height: 3vh;
+  width: 7vh;
+  font-size: 1.5vh;
 }
 
 

@@ -3,13 +3,13 @@ import { VideoContext } from "../context/Contex";
 import { debounce } from "lodash";
 
 export default function SelectedFrames() {
-    const { frames, setFrames, framesVideoElement, canvasHeight, canvasWidth, orderByTime } = useContext(VideoContext);
-    const canvasRefs = useRef([]);
-    const [loadedFrames, setLoadedFrames] = useState([]); // Track which frames are loaded
+    const { frames, setFrames, framesVideoElement, canvasHeight, canvasWidth, orderByTime, canvasRefs} = useContext(VideoContext);
+    
+    const [loadedFrames, setLoadedFrames] = useState([]);
 
     const drawFrame = async (index, canvasIndex) => {
-        console.log(index)
-        const canvas = canvasRefs.current[canvasIndex];
+        console.log(canvasRefs.length)
+        const canvas = canvasRefs[canvasIndex];
         if (canvas) {
             const ctx = canvas.getContext('2d');
 
@@ -68,28 +68,30 @@ export default function SelectedFrames() {
         const newFrames = [...frames]
         newFrames.sort((a, b) => a.frameFloat - b.frameFloat);
         
+        if(canvasRefs.length != 0){
+            canvasRefs.forEach((_, index) => {
 
-        canvasRefs.current.forEach((_, index) => {
-
-            if(!orderByTime){
-                drawFrame(index, index);
-            }else{
-                const key = newFrames[index].frameFloat
-                drawFrame(frames.findIndex(frame => frame.frameFloat === key), index)
-            }
-        });
+                if(!orderByTime){
+                    drawFrame(index, index);
+                }else{
+                    const key = newFrames[index].frameFloat
+                    drawFrame(frames.findIndex(frame => frame.frameFloat === key), index)
+                }
+            });
+        }
+        
     }, 200);
 
     useEffect(() => {
         debouncedDrawFrames();
-    }, [frames, framesVideoElement, canvasHeight, canvasWidth, orderByTime]);
+    }, [frames, orderByTime]);
 
     return (
         <div id='frames-container'>
             {frames.map((frame, index) => (
                 <div id='frame' key={index}>
                     <canvas
-                        ref={el => canvasRefs.current[index] = el}
+                        ref={el => canvasRefs[index] = el}
                     />
                     {loadedFrames[index] && (
                         <>
