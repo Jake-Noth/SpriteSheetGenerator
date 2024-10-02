@@ -3,12 +3,11 @@ import { VideoContext } from "../context/Contex";
 import { debounce } from "lodash";
 
 export default function SelectedFrames() {
-    const { frames, setFrames, framesVideoElement, canvasHeight, canvasWidth, orderByTime, canvasRefs} = useContext(VideoContext);
+    const { frames, setFrames, framesVideoElement, canvasHeight, canvasWidth, orderByTime, canvasRefs, setCanvasRefs} = useContext(VideoContext);
     
     const [loadedFrames, setLoadedFrames] = useState([]);
 
     const drawFrame = async (index, canvasIndex) => {
-        console.log(canvasRefs.length)
         const canvas = canvasRefs[canvasIndex];
         if (canvas) {
             const ctx = canvas.getContext('2d');
@@ -60,7 +59,10 @@ export default function SelectedFrames() {
         const newFrames = [...frames];
         newFrames.splice(index, 1);
         setFrames(newFrames);
-        setLoadedFrames(prev => prev.filter((_, i) => i !== index)); // Remove loaded status for deleted frame
+        setLoadedFrames(prev => prev.filter((_, i) => i !== index));
+        const newCanvas = [...canvasRefs]
+        newCanvas.splice(index, 1)
+        setCanvasRefs(newCanvas)
     });
 
     const debouncedDrawFrames = debounce(() => {
@@ -84,7 +86,7 @@ export default function SelectedFrames() {
 
     useEffect(() => {
         debouncedDrawFrames();
-    }, [frames, orderByTime]);
+    }, [frames, orderByTime, canvasHeight, canvasWidth]);
 
     return (
         <div id='frames-container'>
