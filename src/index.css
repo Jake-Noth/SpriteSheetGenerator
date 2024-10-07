@@ -13,11 +13,31 @@ html, body {
   height: 100%;
 }
 
-#canvas-and-frames-container {
+#screen-container {
+  height: 100%
+}
+
+#navigation-bar-container {
+  display: flex;
+  flex-direction: row;
+  height: 5%;
+  border: 2px solid black;
+  justify-content: end;
+}
+
+.navbar-option {
+  border: none;
+  font-size: 2vh;
+  padding-right: 1vh;
+  padding-left: 1vh;
+}
+
+#generator-container {
   display: flex;
   width: 100%;
   flex-direction: row;
   height: 95%;
+  background-color: purple;
 }
 
 #canvas-and-modifiers-container {
@@ -116,6 +136,15 @@ html, body {
   height: 4%;
 }
 
+#home-container {
+  height: 95%;
+  background-color: red;
+}
+
+#community-container {
+  height: 95%;
+  background-color: blue;
+}
 
 
 

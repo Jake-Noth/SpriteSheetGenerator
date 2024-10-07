@@ -1,51 +1,34 @@
+import { useState } from 'react';
+import Generator from './components/Generator';
+import NavigationBar from './components/NavigationBar';
 import './index.css';
+import Home from './components/Home';
+import Community from './components/Community';
 
 
 function App() {
 
+  const [page, setPage] = useState('home')
+
+  const pageGetter = () => {
+
+    switch(page){
+      case 'home':
+        return <Home/>
+      case 'community':
+        return <Community/>
+      case 'generator':
+        return <Generator/>
+      default:
+        <Home/>
+    }
+  } 
+
   return (
-    <>  
-      <div id="canvas-and-frames-container">
-        <div id='canvas-and-modifiers-container'>
-          
-          <div id='main-video-canvas-container'>
-            
-          </div>
-          
-          <div id='modifiers-container'>
-            <div id='slider-and-frame-button-container'>
-
-              <div id='slider-container'>
-                
-              </div>
-
-              <div id='keyframe-button-container'>
-                
-              </div> 
-            </div>
-
-            <div id='modifier-buttons-container'>
-              
-            </div>
-
-            <div id='submit-button-container'>
-
-            </div>
-          </div>
-        </div>
-        
-        <div id='frames-and-upload-container'>
-
-          <div id='file-upload-container'>
-           
-          </div>
-          
-          <div id='reset-button-container'>
-           
-          </div>
-        </div>
-      </div>
-    </>
+    <div id='screen-container'>
+      <NavigationBar pageSetter = {setPage}/>
+      {pageGetter()}
+    </div>
   );
 }
 
