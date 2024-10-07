@@ -13,21 +13,14 @@ html, body {
   height: 100%;
 }
 
-#topHeader {
-  height: 5%;
-  background-color: yellow;
-  width: 100%;
-  border: 2px solid black;
-}
-
-#canvas-and-frames {
+#canvas-and-frames-container {
   display: flex;
   width: 100%;
   flex-direction: row;
   height: 95%;
 }
 
-#canvas-section-and-modifiers {
+#canvas-and-modifiers-container {
   display: flex;
   height: 100%;
   width: 50%;
@@ -35,7 +28,7 @@ html, body {
   border: 5px solid black;
 }
 
-#canvas-section {
+#main-video-canvas-container {
   display: flex;
   justify-content: center;
   height: 70%
@@ -66,36 +59,11 @@ html, body {
   align-items: center;
 }
 
-#slider {
-  appearance: none;
-  width: 1000px;
-  height: 100px;
-  background: #FF5C35;
-  outline: none;
-  border-radius: 12px;
-  margin: 0 auto;
-}
-
-#slider::-webkit-slider-thumb {
-  appearance: none;
-  width: 20px;
-  height: 20px;
-  border-radius: 50%;
-  background: #FFFFFF;
-  cursor: pointer;
-}
-
-#frame-button-container {
+#keyframe-button-container {
   width: 33%;
   display: flex;
   justify-content: center;
   align-items: center;
-}
-
-#keyframe-button {
-  height: 50%;
-  width: 50%;
-  font-size: .75vw;
 }
 
 #modifier-buttons-container {
@@ -103,16 +71,6 @@ html, body {
   flex-direction: row;
   border-bottom: 5px solid black;
   height: 50%;
-}
-
-#fps-buttons {
-  font-size: 1.5vh; /* Increase font size */
-  border: none;    /* Remove border */
-  padding: 10px;   /* Optional: add some padding */
-}
-
-#fps-buttons legend {
-  font-size: 1.5vh; /* Increase size of the legend text */
 }
 
 #order-frame-container {
@@ -124,23 +82,11 @@ html, body {
   border-right: 5px solid black;
 }
 
-#order-frame-label {
-  font-size: 1.5vh;
-  display: flex;
-  align-items: center; 
-}
-
-#order-frame-input {
-    width: 1.5vh; /* Adjust width */
-    height: 1.5vh; /* Adjust height */
-    margin-left: 8px;
-}
-
 #submit-button-container {
   height: 20%;
 }
 
-#frames-and-upload-section {
+#frames-and-upload-container {
   display: flex;
   flex-direction: column;
   width: 50%;
@@ -155,12 +101,6 @@ html, body {
   border-bottom: 5px solid black;
 }
 
-#file-upload {
-  font-size: 1.5vh;
-  padding: 10px;
-  width: 100%;
-}
-
 #frames-container {
   display: flex;
   height: 92.5%;
@@ -168,32 +108,7 @@ html, body {
   overflow-y: auto;
 }
 
-#frame {
-  display: flex;
-  flex-direction: row;
-  margin-top: 0.5vh;
-  margin-bottom: 0.5vh;
-  align-items: center;
-}
-
-#frame-button {
-  margin-left: 1vh;
-  margin-right:1vh;
-  height: 2.2vh;
-  width: 2.2vh;
-  background-image: url('/delete-button.png'); /* Corrected syntax */
-  background-size: contain; /* Adjust to fit the button */
-  background-repeat: no-repeat; /* Prevents the image from repeating */
-  background-position: center; /* Centers the image in the button */
-  border: none; /* Remove default border if needed */
-  cursor: pointer; /* Changes cursor to pointer when hovering */
-}
-
-#frame-button-time {
-  font-size: 1.2vh;
-}
-
-#reset-button-div {
+#reset-button-container {
   display: flex;
   justify-content: end;
   align-items: center;
@@ -201,12 +116,6 @@ html, body {
   height: 4%;
 }
 
-#reset-frame-button {
-  margin-right: 3vh;
-  height: 3vh;
-  width: 7vh;
-  font-size: 1.5vh;
-}
 
 
 
