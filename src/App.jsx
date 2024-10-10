@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import Generator from './components/Generator';
-import NavigationBar from './components/NavigationBar';
+import NavigationBar from './components/GeneratorComponents/NavigationBar';
 import './index.css';
 import Home from './components/Home';
 import Community from './components/Community';

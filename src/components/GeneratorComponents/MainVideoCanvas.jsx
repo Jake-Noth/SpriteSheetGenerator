@@ -51,5 +51,5 @@ export default function MainVideoCanvas() {
         
     };
 
-    return <canvas id="lol" ref={(el) => setCanvas(el)} />;
+    return <canvas id="main-video-canvas" ref={(el) => setCanvas(el)} />;
 }

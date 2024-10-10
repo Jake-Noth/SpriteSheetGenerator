@@ -1,5 +1,6 @@
 import { useVideoContext } from "../Context/VideoContext";
 import FileLoad from "./GeneratorComponents/FileLoad";
+import FpsButtons from "./GeneratorComponents/FpsButtons";
 import MainVideoCanvas from "./GeneratorComponents/MainVideoCanvas";
 import Slider from "./GeneratorComponents/Slider";
 
@@ -29,7 +30,9 @@ export default function Generator(){
                         </div>
 
                         <div id='modifier-buttons-container'>
-                        
+                            <div id='fps-container' className="modifier-button-container"><FpsButtons/></div>
+                            <div className="modifier-button-container"></div>
+                            <div className="modifier-button-container"></div>
                         </div>
 
                         <div id='submit-button-container'>

@@ -58,6 +58,10 @@ html, body {
   
 }
 
+#main-video-canvas {
+  border: 2px solid black;
+}
+
 #modifiers-container {
   display: flex;
   flex-direction: column;
@@ -94,6 +98,18 @@ html, body {
   flex-direction: row;
   border-bottom: 2px solid black;
   height: 50%;
+  padding-left: .5vw
+}
+
+.modifier-button-container{
+  height:100%;
+  width: 33%;
+}
+
+#fps-container * {
+  display: flex;
+  vertical-align: middle;
+  margin-left: 2vw;
 }
 
 #order-frame-container {
