@@ -4,6 +4,7 @@ import NavigationBar from './components/NavigationBar';
 import './index.css';
 import Home from './components/Home';
 import Community from './components/Community';
+import { VideoProvider } from './Context/VideoContext';
 
 
 function App() {
@@ -20,14 +21,16 @@ function App() {
       case 'generator':
         return <Generator/>
       default:
-        <Home/>
+        return <Home/>
     }
   } 
 
   return (
     <div id='screen-container'>
       <NavigationBar pageSetter = {setPage}/>
-      {pageGetter()}
+      <VideoProvider>
+        {pageGetter()} 
+      </VideoProvider>
     </div>
   );
 }

@@ -1,9 +1,8 @@
 
-export default function NavigationBar({ pageSetter }){
+export default function NavigationBar({ pageSetter}){
 
     const handleNavigation = (destination) => {
         pageSetter(destination)
-        console.log('change to' + destination)
     }
 
     return(
