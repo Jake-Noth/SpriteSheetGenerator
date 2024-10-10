@@ -4,8 +4,6 @@ import { useVideoContext } from "../../Context/VideoContext"
 export default function Slider(){
 
     const {videoLength, videoFPS, setSliderValue, videoElement, mainVideoCanvasRef, sliderValue} = useVideoContext()
-
-    console.log(sliderValue)
     const changeSliderValue = (event) => {
         const newValue = event.target.value;
         videoElement.currentTime = newValue / videoFPS

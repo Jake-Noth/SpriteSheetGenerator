@@ -1,4 +1,5 @@
 import { useVideoContext } from "../Context/VideoContext";
+import useResizeEffect from "../CustomHooks/HandleResize";
 import FileLoad from "./GeneratorComponents/FileLoad";
 import FpsButtons from "./GeneratorComponents/FpsButtons";
 import MainVideoCanvas from "./GeneratorComponents/MainVideoCanvas";
@@ -7,6 +8,7 @@ import Slider from "./GeneratorComponents/Slider";
 export default function Generator(){
 
     const {videoElement} = useVideoContext()
+    useResizeEffect()
     
 
     return(
