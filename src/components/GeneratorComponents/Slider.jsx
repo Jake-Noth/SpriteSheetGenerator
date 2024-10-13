@@ -15,10 +15,9 @@ export default function Slider(){
             context.drawImage(videoElement, 0, 0, canvas.width, canvas.height);
             setSliderValue(newValue);
         }
-        
     }
 
     return(
-        <input type="range" onChange={changeSliderValue} value={sliderValue} min={0} max={videoLength * videoFPS}/>
+        <input id='slider' type="range" onChange={changeSliderValue} value={sliderValue} min={0} max={videoLength * videoFPS}/>
     )
 }

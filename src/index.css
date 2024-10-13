@@ -86,8 +86,46 @@ html, body {
   align-items: center;
 }
 
+
+input[type="range"] {
+  -webkit-appearance: none;
+   appearance: none;
+   background: transparent;
+   cursor: pointer;
+   width: 90%;
+}
+
+
+input[type="range"]:focus {
+ outline: none;
+}
+
+
+input[type="range"]::-webkit-slider-runnable-track {
+  background-color: #053a5f;
+  border-radius: 0.5rem;
+  height: 1vh;  
+}
+
+
+input[type="range"]::-webkit-slider-thumb {
+ -webkit-appearance: none;
+  appearance: none;
+  margin-top: calc((1vh / 2) - (3vh / 2)); 
+
+  background-color: #5cd5eb;
+  height: 3vh;
+  width: 1vw;
+}
+
+input[type="range"]:focus::-webkit-slider-thumb {   
+ border: 1px solid #053a5f;
+ outline: 3px solid #053a5f;
+ outline-offset: 0.125rem; 
+}
+
 #keyframe-button-container {
-  width: 33%;
+  width: 33.333333333%;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -98,7 +136,7 @@ html, body {
   flex-direction: row;
   border-bottom: 2px solid black;
   height: 50%;
-  padding-left: .5vw
+  
 }
 
 .modifier-button-container{
@@ -106,10 +144,22 @@ html, body {
   width: 33%;
 }
 
-#fps-container * {
+#fps-container {
   display: flex;
-  vertical-align: middle;
-  margin-left: 2vw;
+  border-left: 2px solid black;
+  border-right: 2px solid black;
+}
+
+#fps-notes{
+  display: flex;
+  flex-direction: column;
+  margin-right: .5vw;
+}
+
+#fps-button-group{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
 #order-frame-container {

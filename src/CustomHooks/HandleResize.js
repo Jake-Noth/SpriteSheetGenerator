@@ -1,4 +1,4 @@
-import { useRef } from 'react';
+import { useRef, useEffect } from 'react';
 import { useVideoContext } from '../Context/VideoContext';
 
 const useResizeEffect = () => {
@@ -20,31 +20,35 @@ const useResizeEffect = () => {
         const videoWidth = videoElement.videoWidth;
         const videoHeight = videoElement.videoHeight;
 
-        if (videoWidth && videoHeight) {
-          const aspectRatio = videoWidth / videoHeight;
-          let scaledWidth = containerWidth;
-          let scaledHeight = containerHeight;
 
-          if (containerWidth / containerHeight > aspectRatio) {
-            scaledHeight = containerHeight;
-            scaledWidth = scaledHeight * aspectRatio;
-          } else {
-            scaledWidth = containerWidth;
-            scaledHeight = scaledWidth / aspectRatio;
-          }
+        const aspectRatio = videoWidth / videoHeight;
+        let scaledWidth = containerWidth;
+        let scaledHeight = containerHeight;
 
-          canvas.width = scaledWidth;
-          canvas.height = scaledHeight;
-
-          context.clearRect(0, 0, canvas.width, canvas.height);
-          context.drawImage(videoElement, 0, 0, scaledWidth, scaledHeight);
+        if (containerWidth / containerHeight > aspectRatio) {
+        scaledHeight = containerHeight;
+        scaledWidth = scaledHeight * aspectRatio;
         } else {
-          console.log("Video metadata not available yet");
+        scaledWidth = containerWidth;
+        scaledHeight = scaledWidth / aspectRatio;
         }
+
+        canvas.width = scaledWidth;
+        canvas.height = scaledHeight;
+
+        context.clearRect(0, 0, canvas.width, canvas.height);
+        context.drawImage(videoElement, 0, 0, scaledWidth, scaledHeight);
+        
       }
     };
 
-    window.addEventListener('resize', handleResize);
+    useEffect(() => {
+        window.addEventListener('resize', handleResize);
+    
+        return () => {
+          window.removeEventListener('resize', handleResize);
+        };
+      }, [videoElement]);
 
 };
 

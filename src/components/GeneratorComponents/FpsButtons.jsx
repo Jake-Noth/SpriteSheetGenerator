@@ -17,34 +17,37 @@ export default function FpsButtons() {
     };
 
     return (
-        <>
+        <div id='fps-button-group'>
             <label>
                 <input
+                    id='240'
                     type="radio"
                     value="240"
                     checked={videoFPS === 240}
                     onChange={handleFpsChange}
                 />
-                240 FPS
+                240
             </label>
             <label>
                 <input
+                    id='120'
                     type="radio"
                     value="120"
                     checked={videoFPS === 120}
                     onChange={handleFpsChange}
                 />
-                120 FPS
+                120
             </label>
             <label>
                 <input
+                    id='60'
                     type="radio"
                     value="60"
                     checked={videoFPS === 60}
                     onChange={handleFpsChange}
                 />
-                60 FPS
+                60
             </label>
-        </>
+        </div>
     );
 }

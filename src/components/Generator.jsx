@@ -32,7 +32,13 @@ export default function Generator(){
                         </div>
 
                         <div id='modifier-buttons-container'>
-                            <div id='fps-container' className="modifier-button-container"><FpsButtons/></div>
+                            <div id='fps-container' className="modifier-button-container">
+                                <div id='fps-notes'>
+                                    <h3>Set your video's fps</h3>
+                                    <h5>Note: The higher your videos fps the more keyframes to choose from</h5>
+                                </div>
+                                <FpsButtons/>
+                            </div>
                             <div className="modifier-button-container"></div>
                             <div className="modifier-button-container"></div>
                         </div>
