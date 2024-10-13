@@ -12,7 +12,7 @@ const VideoProvider = ({children}) => {
     const [sliderValue, setSliderValue] = useState(0)
     const mainVideoCanvasRef = useRef(null)
     const frameRefs = useRef(null)
-    const [frames, setFrames] = useState(null)
+    const [frameTimes, setFrameTimes] = useState([])
 
     const value = {
         videoElement,
@@ -27,8 +27,8 @@ const VideoProvider = ({children}) => {
         setSliderValue,
         mainVideoCanvasRef,
         frameRefs,
-        frames,
-        setFrames
+        frameTimes,
+        setFrameTimes
     }
 
 

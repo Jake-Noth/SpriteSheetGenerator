@@ -39,13 +39,7 @@ export default function MainVideoCanvas() {
                     videoElement.onseeked = null; 
                 };
             }else{
-                const oldCanvas = mainVideoCanvasRef.current
-                const context = canvas.getContext("2d");
-                canvas.width = oldCanvas.width
-                canvas.height = oldCanvas.height
-                //This redraw is required for when a different page is rendered and you come back to generator
-                context.clearRect(0, 0, oldCanvas.width, oldCanvas.height);
-                context.drawImage(videoElement, 0, 0, oldCanvas.width, oldCanvas.height);
+                canvas = mainVideoCanvasRef.current
             }
         }
         

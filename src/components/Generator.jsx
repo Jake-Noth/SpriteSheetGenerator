@@ -4,6 +4,7 @@ import FileLoad from "./GeneratorComponents/FileLoad";
 import FpsButtons from "./GeneratorComponents/FpsButtons";
 import FrameSelectButton from "./GeneratorComponents/FrameSelectButton";
 import MainVideoCanvas from "./GeneratorComponents/MainVideoCanvas";
+import SelectedFrames from "./GeneratorComponents/SelectedFrames";
 import Slider from "./GeneratorComponents/Slider";
 
 export default function Generator(){
@@ -55,7 +56,7 @@ export default function Generator(){
                     <div id='file-upload-container'>
                         <FileLoad/>
                     </div>
-                    
+                        <SelectedFrames/>
                     <div id='reset-button-container'>
                     
                     </div>
