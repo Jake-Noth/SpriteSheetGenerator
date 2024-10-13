@@ -2,6 +2,7 @@ import { useVideoContext } from "../Context/VideoContext";
 import useResizeEffect from "../CustomHooks/HandleResize";
 import FileLoad from "./GeneratorComponents/FileLoad";
 import FpsButtons from "./GeneratorComponents/FpsButtons";
+import FrameSelectButton from "./GeneratorComponents/FrameSelectButton";
 import MainVideoCanvas from "./GeneratorComponents/MainVideoCanvas";
 import Slider from "./GeneratorComponents/Slider";
 
@@ -27,7 +28,7 @@ export default function Generator(){
                             </div>
 
                             <div id='keyframe-button-container'>
-                                
+                                <FrameSelectButton/>
                             </div> 
                         </div>
 

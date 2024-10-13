@@ -18,9 +18,10 @@ export default function FpsButtons() {
 
     return (
         <div id='fps-button-group'>
-            <label>
+            <label className="fps-button-label">
                 <input
                     id='240'
+                    className="fps-button"
                     type="radio"
                     value="240"
                     checked={videoFPS === 240}
@@ -28,9 +29,10 @@ export default function FpsButtons() {
                 />
                 240
             </label>
-            <label>
+            <label className="fps-button-label">
                 <input
                     id='120'
+                    className="fps-button"
                     type="radio"
                     value="120"
                     checked={videoFPS === 120}
@@ -38,9 +40,10 @@ export default function FpsButtons() {
                 />
                 120
             </label>
-            <label>
+            <label className="fps-button-label">
                 <input
                     id='60'
+                    className="fps-button"
                     type="radio"
                     value="60"
                     checked={videoFPS === 60}
