@@ -60,6 +60,7 @@ html, body {
 
 #main-video-canvas {
   border: 2px solid black;
+  border-radius: 10px;
 }
 
 #modifiers-container {
@@ -69,13 +70,15 @@ html, body {
 }
 
 #slider-and-frame-button-container {
-  padding: 15px;
+  padding-left: 50px;
+  padding-right: 50px;
   width: 100%;
   height: 30%;
+  border-radius: 10px;
   display: flex;
   flex-direction: row;
-  border-bottom: 2px solid black;
-  border-top: 2px solid black;
+  border: 2px solid black;
+  
 }
 
 #slider-container {
@@ -103,7 +106,7 @@ input[type="range"]:focus {
 
 input[type="range"]::-webkit-slider-runnable-track {
   background-color: #053a5f;
-  border-radius: 0.5rem;
+  border-radius: 3rem;
   height: 1vh;  
 }
 
@@ -112,7 +115,7 @@ input[type="range"]::-webkit-slider-thumb {
  -webkit-appearance: none;
   appearance: none;
   margin-top: calc((1vh / 2) - (3vh / 2)); 
-
+  border-radius: 10px;
   background-color: #5cd5eb;
   height: 3vh;
   width: 1vw;
@@ -146,8 +149,9 @@ input[type="range"]:focus::-webkit-slider-thumb {
 
 #fps-container {
   display: flex;
-  border-left: 2px solid black;
-  border-right: 2px solid black;
+  border: 2px solid black;
+  border-radius: 10px;
+ 
 }
 
 #fps-notes{
@@ -217,14 +221,21 @@ input[type="range"]:focus::-webkit-slider-thumb {
   flex-shrink: 0;
 }
 
-.frame {
+.frame-container{
+  display: flex;
+  align-items: center;
+  padding-left: 1px;
   height: 15vh;
   width: 100%;
   background-color: red;
   border: 2px solid black;
+  border-radius: 10px;
   flex-shrink: 0; /* Prevent shrinking */
-  
- 
+}
+
+.frame {
+  border: 2px solid black;
+  border-radius: 10px;
 }
 
 #reset-button-container {
