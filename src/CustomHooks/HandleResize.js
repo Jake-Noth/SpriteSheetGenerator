@@ -3,11 +3,10 @@ import { useVideoContext } from '../Context/VideoContext';
 
 const useResizeEffect = () => {
   const windowSize = useRef({ width: window.innerWidth, height: window.innerHeight });
-  const { mainVideoCanvasRef, videoElement } = useVideoContext();
+  const { mainVideoCanvasRef, videoElement, frameRefs } = useVideoContext();
 
     const handleResize = () => {
       if (!videoElement) return;
-        console.log('resized')
       if (window.innerWidth !== windowSize.current.width || window.innerHeight !== windowSize.current.height) {
         windowSize.current = { width: window.innerWidth, height: window.innerHeight };
         
@@ -40,6 +39,7 @@ const useResizeEffect = () => {
         context.drawImage(videoElement, 0, 0, scaledWidth, scaledHeight);
         
       }
+      
     };
 
     useEffect(() => {

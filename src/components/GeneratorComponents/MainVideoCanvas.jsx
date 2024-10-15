@@ -1,13 +1,19 @@
 import { useVideoContext } from "../../Context/VideoContext";
 
 export default function MainVideoCanvas() {
-    const { videoElement, mainVideoCanvasRef } = useVideoContext();
+    const { videoElement, mainVideoCanvasRef, sliderValue, videoFPS } = useVideoContext();
 
     const setCanvas = (canvas) => {
         if(canvas){
             if (mainVideoCanvasRef.current == null) {
                 const context = canvas.getContext("2d");
-                videoElement.currentTime = 0;   
+
+                if(sliderValue == 0){
+                    videoElement.currentTime = 0
+                }else{
+                    videoElement.currentTime = (sliderValue/videoFPS)
+                }
+                
                 videoElement.onseeked = () => {
                     const canvasContainer = document.getElementById("main-video-canvas-container");
                     const containerWidth = canvasContainer.offsetWidth;

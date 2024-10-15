@@ -56,7 +56,11 @@ export default function Generator(){
                     <div id='file-upload-container'>
                         <FileLoad/>
                     </div>
+
+                    <div id = 'frames-container'>
                         <SelectedFrames/>
+                    </div>
+                        
                     <div id='reset-button-container'>
                     
                     </div>

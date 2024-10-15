@@ -214,6 +214,17 @@ input[type="range"]:focus::-webkit-slider-thumb {
   height: 92.5%;
   flex-direction: column;
   overflow-y: auto;
+  flex-shrink: 0;
+}
+
+.frame {
+  height: 15vh;
+  width: 100%;
+  background-color: red;
+  border: 2px solid black;
+  flex-shrink: 0; /* Prevent shrinking */
+  
+ 
 }
 
 #reset-button-container {

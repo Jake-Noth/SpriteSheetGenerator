@@ -5,11 +5,11 @@ import { useEffect } from "react"
 
 export default function useResetCanvasRefs(){
 
-    const {setFrameTimes, mainVideoCanvasRef} = useVideoContext()
+    const {frameRefs, mainVideoCanvasRef} = useVideoContext()
 
     useEffect(() => {
-        setFrameTimes([])
+        frameRefs.current = []
         mainVideoCanvasRef.current = null
         
-    }, [setFrameTimes, mainVideoCanvasRef])
+    }, [frameRefs, mainVideoCanvasRef])
 }
