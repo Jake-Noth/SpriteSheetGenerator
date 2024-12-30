@@ -1,9 +1,10 @@
+import Home from "./HomePageComponents/Home"
 
 function App() {
 
 
   return (
-    <>hi</>
+    <Home/>
   )
 }
 
