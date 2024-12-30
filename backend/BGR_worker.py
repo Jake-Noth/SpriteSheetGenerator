@@ -18,7 +18,23 @@ def process_queue(task_queue):
 
         print(f"Processing UUID: {UUID}")
 
-        command = ['python3', '-m', 'carvekit', '-i', input_path, '-o', output_path, '--device', 'cpu']
+        command = [
+            'python3', '-m', 'carvekit', 
+            '-i', input_path, 
+            '-o', output_path, 
+            '--device', 'cpu', 
+            '--pre', 'none', 
+            '--post', 'fba', 
+            '--net', 'tracer_b7', 
+            '--batch_size', '10', 
+            '--batch_size_seg', '5', 
+            '--batch_size_mat', '1', 
+            '--seg_mask_size', '640', 
+            '--matting_mask_size', '2048', 
+            '--trimap_dilation', '30', 
+            '--trimap_erosion', '5', 
+            '--trimap_prob_threshold', '231'
+            ]
 
         try:
             result = subprocess.run(command, stdout=subprocess.PIPE, stderr=subprocess.PIPE, text=True)

@@ -24,7 +24,6 @@ async def recieve_images(
         file_location = os.path.join(input_dir, frame.filename)
         with open(file_location, "wb") as f:
             f.write(await frame.read())
-            print(f"Saved frame to: {file_location}")
 
     process_UUID(UUID)
 
