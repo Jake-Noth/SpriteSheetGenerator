@@ -29,7 +29,7 @@ export default function BackModal(props:modalProps){
     const {switchToHome} = usePageStore()
 
     const openNewTab = () => {
-        console.log('wtyf')
+        props.clearModal()
         const URL = window.location.href
         window.open(URL, '_blank')
     }
@@ -39,18 +39,12 @@ export default function BackModal(props:modalProps){
             style={{...modalStyles}}
             onClick={props.clearModal}
         >
-
-            
             <div style={{height:"20%", width:"35%", backgroundColor:"white", borderRadius:"25px", display:"flex", justifyContent:"center", alignItems:"center", flexDirection:"column"}}
             onClick={handleModalContentClick}>
-                
-                
                 
                 <div style={{height:"40%", width:"90%", display:"flex", alignItems:"center", justifyContent:"center"}}>
                     WARNING your progress will not be saved. Recommended approach is to reopen the page in a new tab to see the instructions
                 </div>
-                
-                
                 
                 <div style={{height:"25%", width:" 90%", display:"flex", justifyContent:"center", alignItems:"center", gap:"5%"}}>
                     <button onClick={switchToHome} style={{ height: "100%", width: "30%", backgroundColor: "#FF9999", borderRadius: "10px" }}>Home</button> 

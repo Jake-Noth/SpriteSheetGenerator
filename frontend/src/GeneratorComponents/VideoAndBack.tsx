@@ -12,20 +12,19 @@ export default function VideoAndBack(){
     }
 
     const showTheModal = () => {
-        console.log('why are we here')
         setShowModal(true)
     }
 
     return(
         <div style={{height:"60%", width:"100%", background:"purple", paddingTop:"5%", paddingLeft:"5%"}}>
-            <div id="backbuttondiv"
+            <div
                 style={{height:"15%", width:"20%", backgroundColor:"green"}}
                 onClick={showTheModal}
             >
             </div>
 
             {showModal && <BackModal clearModal = {clearModal}/>}
-            
+
         </div>
     )
 }
