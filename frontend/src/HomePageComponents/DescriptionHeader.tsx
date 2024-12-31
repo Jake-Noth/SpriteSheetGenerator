@@ -1,6 +1,9 @@
 import { CSSProperties } from "react"
+import { usePageStore } from "../stores/PageSwitchStore"
 
 export default function DescriptionHeader(){
+
+    const {switchToGeneratorPage} = usePageStore()
 
     const headerContainerStyles: CSSProperties = {
         height:"10%", 
@@ -37,8 +40,8 @@ export default function DescriptionHeader(){
 
             <div 
                 style={{...tryGeneratorButtonStyles}}
+                onClick={switchToGeneratorPage}
             >
-                
                 Use Generator
             </div>
         </div>

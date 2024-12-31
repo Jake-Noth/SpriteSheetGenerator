@@ -3,6 +3,7 @@ import DescriptionSection from "./DescriptionSection";
 import GeneratedSpritesSection from "./GeneratedSpritesSection";
 
 
+
 export default function Home(){
 
     const homeContainerStyles: CSSProperties = {
