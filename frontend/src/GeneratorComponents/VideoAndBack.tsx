@@ -7,23 +7,12 @@ import { useDrawCanvasStore } from "../stores/DrawCanvasStore";
 
 export default function VideoAndBack(){
 
-    const {setFileObj, setCanvas} = useDrawCanvasStore()
-
     const [showModal, setShowModal] = useState(false)
     const [fileName, setFileName] = useState<string | null>(null);
     const canvasRef = useRef<HTMLCanvasElement | null>(null);
-    const eventListenerRef = useRef(null)
 
-    const {time, setVideoSource, video} = useDrawCanvasStore()
-
-
-    if(eventListenerRef.current == null){
-        window.addEventListener("resize", ()=>{
-            if(video && canvasRef.current)
-                drawFrame(video, time, canvasRef.current)
-        })
-    }
-
+    const {time, setTime} = useDrawCanvasStore()
+    
     const hideModal = () => {
         setShowModal(false)
     }
@@ -32,33 +21,31 @@ export default function VideoAndBack(){
         setShowModal(true)
     }
 
-    const setState = (video: HTMLVideoElement) =>{
-
-        setVideoSource(video)
-
-        if(canvasRef.current)
-        drawFrame(video, time, canvasRef.current)
-        video.removeEventListener("loadeddata", () => setState(video))
-    }
-
-    const handleFile = (event:React.ChangeEvent<HTMLInputElement>) => {
-        const file = event.target.files?.[0]
-        if(file){
-
-            const fileObj = URL.createObjectURL(file)
-
-            setFileName(file.name)
-            setFileObj(file.name)
-            
-
-            if(canvasRef.current){
-                setCanvas(canvasRef.current)
-                const video = document.createElement("video")
-                video.src = fileObj
-                video.addEventListener("loadeddata", () => setState(video))
-            }
+    const resizeHelper = (video:HTMLVideoElement) => {
+        if (canvasRef.current) {
+            drawFrame(video, time, canvasRef.current);
         }
     }
+
+    const handleFile = (event: React.ChangeEvent<HTMLInputElement>) => {
+        const file = event.target.files?.[0];
+
+        if (file) {
+            setFileName(file.name);
+            const video = document.createElement("video");
+            video.src = URL.createObjectURL(file);
+
+            if (canvasRef.current) {
+                video.addEventListener("loadeddata", () => {
+                    if (canvasRef.current) {
+                        setTime(0)
+                        drawFrame(video, 0, canvasRef.current);
+                    }
+                });
+            }
+            window.addEventListener("resize", ()=>resizeHelper(video))
+        }
+    };
 
     return(
         <div style={{height:"60%", width:"100%", background:"purple", display:"flex", flexDirection:"column"}}>

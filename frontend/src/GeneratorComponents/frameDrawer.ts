@@ -46,7 +46,4 @@ export const drawFrame = (video: HTMLVideoElement, time: number, canvas: HTMLCan
     };
 
     setTime()
-    
-
-    
 };
