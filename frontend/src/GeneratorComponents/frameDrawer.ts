@@ -1,14 +1,9 @@
 
-export const drawFrame = (fileObj: string, time: number, canvas:HTMLCanvasElement) => {
-        
-    const video = document.createElement("video");
-    video.src = fileObj;
 
-    video.addEventListener("loadeddata", () => {
-        video.currentTime = time;
-    });
+export const drawFrame = (video: HTMLVideoElement, time: number, canvas: HTMLCanvasElement) => {
 
-    video.addEventListener("seeked", () => {
+
+    const drawCanvas = () => {
         if (canvas) {
             const canvasWidth = canvas.clientWidth;
             const canvasHeight = canvas.clientHeight;
@@ -38,9 +33,20 @@ export const drawFrame = (fileObj: string, time: number, canvas:HTMLCanvasElemen
                 }
 
                 ctx.clearRect(0, 0, canvasWidth, canvasHeight);
-
                 ctx.drawImage(video, offsetX, offsetY, drawWidth, drawHeight);
             }
         }
-    });
+
+        video.removeEventListener("seeked", drawCanvas)
+    };
+
+    const setTime = () => {
+        video.currentTime = time;
+        video.addEventListener("seeked", drawCanvas);
+    };
+
+    setTime()
+    
+
+    
 };
