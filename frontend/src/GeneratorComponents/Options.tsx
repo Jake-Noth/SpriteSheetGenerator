@@ -1,10 +1,23 @@
-import { useState } from "react"
+import { useDrawCanvasStore } from "../stores/DrawCanvasStore";
+import { drawFrame } from "./frameDrawer";
 
-export default function Options() {
-  const [videoFPS, setVideoFPS] = useState(60);
+interface OptionsProps {
+  setFPS : React.Dispatch<React.SetStateAction<number>>
+  FPS: number
+}
+
+export default function Options(props: OptionsProps) {
+  
+
+  const {video, canvas, slider} = useDrawCanvasStore()
 
   const handleFPSChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setVideoFPS(Number(event.target.value));
+    props.setFPS(Number(event.target.value));
+
+    if(video && canvas && slider){
+      drawFrame(video, 0, canvas)
+      slider.value = "0"
+    }
   };
 
   return (
@@ -16,7 +29,7 @@ export default function Options() {
             type="radio"
             name="fps"
             value="60"
-            checked={videoFPS === 60}
+            checked={props.FPS === 60}
             onChange={handleFPSChange}
           />
           60 FPS
@@ -26,7 +39,7 @@ export default function Options() {
             type="radio"
             name="fps"
             value="120"
-            checked={videoFPS === 120}
+            checked={props.FPS === 120}
             onChange={handleFPSChange}
           />
           120 FPS
@@ -36,7 +49,7 @@ export default function Options() {
             type="radio"
             name="fps"
             value="240"
-            checked={videoFPS === 240}
+            checked={props.FPS === 240}
             onChange={handleFPSChange}
           />
           240 FPS

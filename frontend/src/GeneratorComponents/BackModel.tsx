@@ -1,5 +1,6 @@
 import { CSSProperties } from "react"
 import { usePageStore } from "../stores/PageSwitchStore";
+import { useDrawCanvasStore } from "../stores/DrawCanvasStore";
 
 
 
@@ -27,6 +28,12 @@ export default function BackModal(props:modalProps){
     };
 
     const {switchToHome} = usePageStore()
+    const {reset} = useDrawCanvasStore()
+
+    const switchToHomeAndReset = () =>{
+        reset()
+        switchToHome()
+    }
 
     const openNewTab = () => {
         props.clearModal()
@@ -47,7 +54,7 @@ export default function BackModal(props:modalProps){
                 </div>
                 
                 <div style={{height:"25%", width:" 90%", display:"flex", justifyContent:"center", alignItems:"center", gap:"5%"}}>
-                    <button onClick={switchToHome} style={{ height: "100%", width: "30%", backgroundColor: "#FF9999", borderRadius: "10px" }}>Home</button> 
+                    <button onClick={switchToHomeAndReset} style={{ height: "100%", width: "30%", backgroundColor: "#FF9999", borderRadius: "10px" }}>Home</button> 
                     <button onClick={openNewTab} style={{ height: "100%", width: "30%", backgroundColor: "#90EE90", borderRadius: "10px" }}>New Tab</button>
                 </div>
             </div>
