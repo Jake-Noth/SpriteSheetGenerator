@@ -1,19 +1,15 @@
 import { useState } from "react";
-import BackModal from "./BackModel";
-import { drawFrame } from "./frameDrawer";
-import { useDrawCanvasStore } from "../stores/DrawCanvasStore";
+import BackModal from "./BackModal";
+import { drawFrame } from "../frameDrawer";
+import { useDrawCanvasStore } from "../DrawCanvasStore";
+import { useSaveCanvasStore } from "../SaveCanvasStore";
 
 export default function VideoAndBack() {
     const [showModal, setShowModal] = useState(false);
     const [fileName, setFileName] = useState<string | null>(null);
 
-    const { time, setTime, setDuration, setCanvas, canvas, setVideoSource, slider } = useDrawCanvasStore();
-
-    const canvasCallbackRef = (canvasElement: HTMLCanvasElement | null) => {
-        if (canvasElement && !canvas) {
-            setCanvas(canvasElement);
-        }
-    };
+    const { time, setTime, setDuration, canvas, setVideoSource, slider } = useDrawCanvasStore();
+    const {resetSavedFrames} = useSaveCanvasStore()
 
     const hideModal = () => setShowModal(false);
     const showTheModal = () => setShowModal(true);
@@ -34,7 +30,7 @@ export default function VideoAndBack() {
 
             if (canvas) {
                 if(slider) slider.value = "0"
-
+                resetSavedFrames()
                 video.addEventListener("loadeddata", () => {
                     setDuration(video.duration);
                     setTime(0);
@@ -47,18 +43,10 @@ export default function VideoAndBack() {
     };
 
     return (
-        <div style={{ height: "60%", width: "100%", background: "purple", display: "flex", flexDirection: "column" }}>
-            <div
-                style={{
-                    height: "10%",
-                    width: "100%",
-                    display: "flex",
-                    flexDirection: "row",
-                    justifyContent: "space-between",
-                }}
-            >
+        <div id="header" style={{ height: "10%", width: "100%", display: "flex",flexDirection:"row",justifyContent:"space-between", alignItems:"center", border:"2px solid black" }}>
+            
                 <button
-                    style={{ height: "100%", width: "20%", backgroundColor: "green" }}
+                    style={{ height: "80%", width: "20%"}}
                     onClick={showTheModal}
                 >
                     Back
@@ -80,13 +68,12 @@ export default function VideoAndBack() {
                     htmlFor="videoUpload"
                     className="upload-label"
                     style={{
+                        height:"80%",
                         border: "2px solid black",
                         width: "20%",
                         display: "flex",
                         alignItems: "center",
                         justifyContent: "center",
-                        marginTop: "1%",
-                        marginBottom: "1%",
                     }}
                 >
                     {fileName ? "Change Video" : "Upload Video"}
@@ -99,9 +86,6 @@ export default function VideoAndBack() {
                     onChange={handleFile}
                     style={{ display: "none" }}
                 />
-            </div>
-
-            <canvas ref={canvasCallbackRef} style={{ height: "90%", width: "100%", border: "2px solid black" }} />
 
             {showModal && <BackModal clearModal={hideModal} />}
         </div>

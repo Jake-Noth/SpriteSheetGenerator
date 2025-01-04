@@ -1,6 +1,6 @@
 import { CSSProperties } from "react"
-import { usePageStore } from "../stores/PageSwitchStore";
-import { useDrawCanvasStore } from "../stores/DrawCanvasStore";
+import { usePageStore } from "../../PageSwitchStore";
+import { useDrawCanvasStore } from "../DrawCanvasStore";
 
 
 

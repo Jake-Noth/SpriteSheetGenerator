@@ -1,6 +1,6 @@
 import Home from "./HomePageComponents/Home"
-import Generator from "./GeneratorComponents/Generator"
-import { usePageStore} from './stores/PageSwitchStore'
+import Generator from "./GeneratorFeature/Generator"
+import { usePageStore} from './PageSwitchStore'
 
 function App() {
 

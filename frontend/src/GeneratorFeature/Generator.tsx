@@ -1,7 +1,9 @@
 import { CSSProperties, useState } from "react"
-import VideoAndBack from "./VideoAndBack"
-import Options from "./Options"
-import SliderAndCapture from "./SliderAndCapture"
+import Options from "./GeneratorComponents/Options"
+import SliderAndCapture from "./GeneratorComponents/SliderAndCapture"
+import Canvas from "./GeneratorComponents/Canvas"
+import Header from "./GeneratorComponents/Header"
+import SelectedFrames from "./GeneratorComponents/SelectedFrames"
 
 export default function Generator(){
 
@@ -10,33 +12,35 @@ export default function Generator(){
     const generatorContainerStyles: CSSProperties = {
         height:"100%", 
         width:"100%", 
-        backgroundColor:"red",
         display:"flex",
-        flexDirection:"row"
+        flexDirection:"row",
+        backgroundColor:"green"
     }
 
     const leftDivContainer: CSSProperties = {
         height:"100%", 
-        width:"75%", 
-        backgroundColor:"green"
+        width:"75%",
+        border:"1px solid black"
+        
     }
 
     const rightDivContainer: CSSProperties = {
         height:"100%", 
-        width:"25%", 
-        backgroundColor:"red"
+        width:"25%",
+        border:"1px solid black"
     }
 
     return(
         <div style={{...generatorContainerStyles}}>
             <div style={{...leftDivContainer}}>
-                <VideoAndBack/>
+                <Header/>
+                <Canvas/>
                 <Options setFPS={setFPS} FPS={FPS}/>
                 <SliderAndCapture FPS={FPS}/>
             </div>
 
             <div style={{...rightDivContainer}}>
-
+                <SelectedFrames/>
             </div>
         </div>
     )

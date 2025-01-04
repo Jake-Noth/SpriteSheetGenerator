@@ -1,5 +1,5 @@
-import { useDrawCanvasStore } from "../stores/DrawCanvasStore";
-import { drawFrame } from "./frameDrawer";
+import { useDrawCanvasStore } from "../DrawCanvasStore";
+import { drawFrame } from "../frameDrawer";
 
 interface OptionsProps {
   setFPS : React.Dispatch<React.SetStateAction<number>>
@@ -21,7 +21,7 @@ export default function Options(props: OptionsProps) {
   };
 
   return (
-    <div style={{ height: "20%", width: "100%", backgroundColor: "yellow", display: "flex", flexDirection: "column", justifyContent: "center", alignItems: "center" }}>
+    <div style={{ height: "20%", width: "100%", display: "flex", flexDirection: "column", justifyContent: "center", alignItems: "center" }}>
       <h3>Select Video FPS</h3>
       <div style={{ display: "flex", gap: "1rem" }}>
         <label>

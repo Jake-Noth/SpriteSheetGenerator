@@ -4,6 +4,7 @@ export const drawFrame = (video: HTMLVideoElement, time: number, canvas: HTMLCan
 
 
     const drawCanvas = () => {
+        
         if (canvas) {
             const canvasWidth = canvas.clientWidth;
             const canvasHeight = canvas.clientHeight;

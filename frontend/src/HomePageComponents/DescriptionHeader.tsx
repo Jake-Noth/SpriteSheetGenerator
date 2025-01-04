@@ -1,5 +1,5 @@
 import { CSSProperties } from "react"
-import { usePageStore } from "../stores/PageSwitchStore"
+import { usePageStore } from "../PageSwitchStore"
 
 export default function DescriptionHeader(){
 
