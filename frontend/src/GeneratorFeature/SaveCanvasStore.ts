@@ -4,6 +4,7 @@ type SaveCanvas = {
   savedFrames: { [key: number]: string }; // Dictionary type with number keys and string values
   setSavedFrames: (frame: number, url: string) => void; // Function to add/update a frame
   resetSavedFrames: () => void; // Function to reset the saved frames
+  deleteSavedFrame: (frame: number) => void; // Function to delete a frame by its key
 };
 
 export const useSaveCanvasStore = create<SaveCanvas>((set) => ({
@@ -16,4 +17,10 @@ export const useSaveCanvasStore = create<SaveCanvas>((set) => ({
       },
     })),
   resetSavedFrames: () => set({ savedFrames: {} }), // Reset the saved frames
+  deleteSavedFrame: (frame) =>
+    set((state) => {
+      const newSavedFrames = { ...state.savedFrames };
+      delete newSavedFrames[frame]; // Delete the key-value pair
+      return { savedFrames: newSavedFrames }; // Update the state
+    }),
 }));

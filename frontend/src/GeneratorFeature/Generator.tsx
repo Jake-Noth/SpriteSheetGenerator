@@ -4,6 +4,7 @@ import SliderAndCapture from "./GeneratorComponents/SliderAndCapture"
 import Canvas from "./GeneratorComponents/Canvas"
 import Header from "./GeneratorComponents/Header"
 import SelectedFrames from "./GeneratorComponents/SelectedFrames"
+import NextStage from "./GeneratorComponents/NextStage"
 
 export default function Generator(){
 
@@ -27,7 +28,9 @@ export default function Generator(){
     const rightDivContainer: CSSProperties = {
         height:"100%", 
         width:"25%",
-        border:"1px solid black"
+        border:"1px solid black",
+        display:"flex",
+        flexDirection:"column"
     }
 
     return(
@@ -41,6 +44,7 @@ export default function Generator(){
 
             <div style={{...rightDivContainer}}>
                 <SelectedFrames/>
+                <NextStage/>
             </div>
         </div>
     )

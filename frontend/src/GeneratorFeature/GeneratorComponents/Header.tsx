@@ -43,15 +43,13 @@ export default function VideoAndBack() {
     };
 
     return (
-        <div id="header" style={{ height: "10%", width: "100%", display: "flex",flexDirection:"row",justifyContent:"space-between", alignItems:"center", border:"2px solid black" }}>
+        <div id="header" style={{ height: "10%", width: "100%", display: "flex",flexDirection:"row",justifyContent:"space-between", alignItems:"center", paddingRight:"2%", paddingLeft:"2%" }}>
             
-                <button
-                    style={{ height: "80%", width: "20%"}}
+                <div
+                    style={{ height: "50%", width: "10%", backgroundImage: "url('/back-arrow.webp')", backgroundSize:"contain", backgroundRepeat:"no-repeat", backgroundPosition:"center"}}
                     onClick={showTheModal}
-                >
-                    Back
-                </button>
-
+                />
+                
                 <div
                     style={{
                         height: "100%",
@@ -68,12 +66,13 @@ export default function VideoAndBack() {
                     htmlFor="videoUpload"
                     className="upload-label"
                     style={{
-                        height:"80%",
+                        height:"50%",
                         border: "2px solid black",
-                        width: "20%",
+                        width: "10%",
                         display: "flex",
                         alignItems: "center",
                         justifyContent: "center",
+                        
                     }}
                 >
                     {fileName ? "Change Video" : "Upload Video"}

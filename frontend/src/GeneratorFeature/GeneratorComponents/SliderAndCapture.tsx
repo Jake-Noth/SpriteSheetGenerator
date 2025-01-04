@@ -29,13 +29,9 @@ export default function SliderAndCapture(props: SliderProps) {
         [setSlider]
     );
 
-
-    
-
     const captureFrame = () => {
         const slider = document.getElementById("slider") as HTMLInputElement
             
-        
         if (slider && !(Number(slider.value) in savedFrames)){
             const canvas = document.createElement("canvas");
             const ctx = canvas.getContext("2d")
@@ -51,13 +47,12 @@ export default function SliderAndCapture(props: SliderProps) {
                 
             }
         }
-        
     }
 
     return (
         <div
             style={{
-                height: "20%",
+                height: "10%",
                 width: "100%",
                 display: "flex",
                 alignItems: "center",

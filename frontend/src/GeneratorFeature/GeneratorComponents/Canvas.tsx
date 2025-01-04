@@ -13,7 +13,7 @@ export default function Canvas(){
     };
 
     return(
-        <div style={{height:"50%", width:"100%"}}>
+        <div style={{height:"60%", width:"100%"}}>
             <canvas ref={canvasCallbackRef} style={{ height: "100%", width: "100%", border:"1px solid black"}} />
         </div>
         

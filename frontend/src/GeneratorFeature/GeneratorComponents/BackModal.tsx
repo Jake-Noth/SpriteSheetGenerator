@@ -1,6 +1,7 @@
 import { CSSProperties } from "react"
 import { usePageStore } from "../../PageSwitchStore";
 import { useDrawCanvasStore } from "../DrawCanvasStore";
+import { useSaveCanvasStore } from "../SaveCanvasStore";
 
 
 
@@ -29,9 +30,11 @@ export default function BackModal(props:modalProps){
 
     const {switchToHome} = usePageStore()
     const {reset} = useDrawCanvasStore()
+    const {resetSavedFrames} = useSaveCanvasStore()
 
     const switchToHomeAndReset = () =>{
         reset()
+        resetSavedFrames()
         switchToHome()
     }
 
@@ -50,7 +53,7 @@ export default function BackModal(props:modalProps){
             onClick={handleModalContentClick}>
                 
                 <div style={{height:"40%", width:"90%", display:"flex", alignItems:"center", justifyContent:"center"}}>
-                    WARNING your progress will not be saved. Recommended approach is to reopen the page in a new tab to see the instructions
+                    WARNING your progress will not be saved. Recommended approach is to reopen the page in a new tab to see the instructions.
                 </div>
                 
                 <div style={{height:"25%", width:" 90%", display:"flex", justifyContent:"center", alignItems:"center", gap:"5%"}}>
