@@ -1,8 +1,8 @@
 import { useState } from "react";
 import BackModal from "./BackModal";
 import { drawFrame } from "../frameDrawer";
-import { useDrawCanvasStore } from "../DrawCanvasStore";
-import { useSaveCanvasStore } from "../SaveCanvasStore";
+import { useDrawCanvasStore } from "../Stores/DrawCanvasStore";
+import { useSaveCanvasStore } from "../Stores/SaveCanvasStore";
 
 export default function VideoAndBack() {
     const [showModal, setShowModal] = useState(false);
@@ -46,13 +46,13 @@ export default function VideoAndBack() {
         <div id="header" style={{ height: "10%", width: "100%", display: "flex",flexDirection:"row",justifyContent:"space-between", alignItems:"center", paddingRight:"2%", paddingLeft:"2%" }}>
             
                 <div
-                    style={{ height: "50%", width: "10%", backgroundImage: "url('/back-arrow.webp')", backgroundSize:"contain", backgroundRepeat:"no-repeat", backgroundPosition:"center"}}
+                    style={{ height: "40%", width: "10%", backgroundImage: "url('/back-arrow.webp')", backgroundSize:"contain", backgroundRepeat:"no-repeat", backgroundPosition:"center"}}
                     onClick={showTheModal}
                 />
                 
                 <div
                     style={{
-                        height: "100%",
+                        height: "90%",
                         width: "20%",
                         display: "flex",
                         alignItems: "end",
@@ -72,6 +72,7 @@ export default function VideoAndBack() {
                         display: "flex",
                         alignItems: "center",
                         justifyContent: "center",
+                        borderRadius:"20px"
                         
                     }}
                 >

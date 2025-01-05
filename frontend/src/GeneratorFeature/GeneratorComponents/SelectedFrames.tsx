@@ -1,4 +1,4 @@
-import { useSaveCanvasStore } from "../SaveCanvasStore";
+import { useSaveCanvasStore } from "../Stores/SaveCanvasStore";
 
 export default function SelectedFrames() {
     const { savedFrames, deleteSavedFrame } = useSaveCanvasStore();
@@ -15,8 +15,10 @@ export default function SelectedFrames() {
                     style={{
                         width: "100%",
                         marginBottom: "10px",
-                        position: "relative", // Needed for absolute positioning of overlay
-                        cursor: "pointer", // Change cursor to pointer to indicate interactivity
+                        position: "relative",
+                        cursor: "pointer",
+                        borderTop:"2px solid black",
+                        borderBottom:"2px solid black"
                     }}
                     onMouseEnter={(e: React.MouseEvent<HTMLDivElement>) => {
                         const overlay = e.currentTarget.querySelector(".overlay") as HTMLElement;
@@ -37,7 +39,7 @@ export default function SelectedFrames() {
                             width: "100%",
                             height: "auto",
                             objectFit: "contain",
-                            display: "block", // Remove extra space under image
+                            display: "block",
                         }}
                     />
                     <div
@@ -48,13 +50,13 @@ export default function SelectedFrames() {
                             left: 0,
                             width: "100%",
                             height: "100%",
-                            backgroundColor: "rgba(0, 0, 0, 0.5)", // Semi-transparent background
-                            color: "white", // Text color
+                            backgroundColor: "rgba(0, 0, 0, 0.5)",
+                            color: "white",
                             display: "flex",
                             justifyContent: "center",
                             alignItems: "center",
-                            opacity: 0, // Initially hidden
-                            transition: "opacity 0.3s", // Smooth transition
+                            opacity: 0,
+                            transition: "opacity 0.3s",
                             fontSize: "18px",
                         }}
                     >

@@ -1,7 +1,7 @@
-import { useDrawCanvasStore } from "../DrawCanvasStore";
+import { useDrawCanvasStore } from "../Stores/DrawCanvasStore";
 import { drawFrame } from "../frameDrawer";
 import { useCallback } from "react";
-import { useSaveCanvasStore } from "../SaveCanvasStore"
+import { useSaveCanvasStore } from "../Stores/SaveCanvasStore"
 
 interface SliderProps {
     FPS: number;

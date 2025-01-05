@@ -15,20 +15,19 @@ export default function Generator(){
         width:"100%", 
         display:"flex",
         flexDirection:"row",
-        backgroundColor:"green"
+        backgroundColor:"#f1f1f1"
     }
 
     const leftDivContainer: CSSProperties = {
         height:"100%", 
         width:"75%",
-        border:"1px solid black"
+        borderRight:"1px solid black"
         
     }
 
     const rightDivContainer: CSSProperties = {
         height:"100%", 
         width:"25%",
-        border:"1px solid black",
         display:"flex",
         flexDirection:"column"
     }
