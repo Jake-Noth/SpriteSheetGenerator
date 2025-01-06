@@ -6,25 +6,32 @@ type SavedFrames = Record<number, string>;
 export default function FramePreview() {
   const { savedFrames } = useSaveCanvasStore() as { savedFrames: SavedFrames };
   const canvasRef = useRef<HTMLCanvasElement | null>(null);
-  const [isPlaying, setIsPlaying] = useState<boolean>(false);
+  const intervalRef = useRef<number | null>(null); // Reference for the interval
   const [canvasSize, setCanvasSize] = useState<{ width: number; height: number }>({
     width: 0,
     height: 0,
   });
-  const [fps, setFps] = useState<number>(10); // Default FPS
-  const [fpsInput, setFpsInput] = useState<string>("10"); // Input string for the FPS field
+  const [fps, setFps] = useState<number>(10);
+  const [fpsInput, setFpsInput] = useState<string>("10");
 
   useEffect(() => {
-    if (!canvasRef.current || Object.keys(savedFrames).length === 0) return;
+    const canvas = canvasRef.current;
+    const context = canvas?.getContext("2d");
 
-    // Set canvas size based on the first frame's dimensions
+    if (Object.keys(savedFrames).length === 0 && canvas && context) {
+      context.clearRect(0, 0, canvas.width, canvas.height);
+      return;
+    }
+
+    if (!canvas || Object.keys(savedFrames).length === 0) return;
+
     const firstFrameTime = Object.keys(savedFrames)[0];
     const firstImageDataUrl = savedFrames[Number(firstFrameTime)];
     const img = new Image();
 
     img.onload = () => {
       const aspectRatio = img.width / img.height;
-      const container = canvasRef.current?.parentElement;
+      const container = canvas.parentElement;
       if (container) {
         const containerWidth = container.clientWidth;
         const containerHeight = container.clientHeight;
@@ -46,7 +53,7 @@ export default function FramePreview() {
   }, [savedFrames]);
 
   useEffect(() => {
-    if (!isPlaying || !canvasRef.current || Object.keys(savedFrames).length === 0) return;
+    if (!canvasRef.current || Object.keys(savedFrames).length === 0) return;
 
     const canvas = canvasRef.current;
     const context = canvas.getContext("2d");
@@ -57,23 +64,42 @@ export default function FramePreview() {
       .sort((a, b) => a - b);
 
     let frameIndex = 0;
-    const interval = setInterval(() => {
-      const frameTime = frameTimes[frameIndex];
-      const imageDataUrl = savedFrames[frameTime];
-      const img = new Image();
 
-      img.onload = () => {
-        context.clearRect(0, 0, canvas.width, canvas.height);
-        context.drawImage(img, 0, 0, canvas.width, canvas.height);
-      };
+    const playFrames = () => {
+      if (intervalRef.current) clearInterval(intervalRef.current); // Clear existing interval
 
-      img.src = imageDataUrl;
+      intervalRef.current = window.setInterval(() => { // Use window.setInterval here
+        if (frameIndex < frameTimes.length) {
+          const frameTime = frameTimes[frameIndex];
+          const imageDataUrl = savedFrames[frameTime];
+          const img = new Image();
 
-      frameIndex = (frameIndex + 1) % frameTimes.length;
-    }, 1000 / fps);
+          img.onload = () => {
+            context.clearRect(0, 0, canvas.width, canvas.height);
+            context.drawImage(img, 0, 0, canvas.width, canvas.height);
+          };
 
-    return () => clearInterval(interval);
-  }, [savedFrames, isPlaying, fps]);
+          img.src = imageDataUrl;
+
+          frameIndex += 1;
+        } else {
+            if(intervalRef.current)
+          clearInterval(intervalRef.current); // Clear the interval after all frames are played
+          setTimeout(() => {
+            frameIndex = 0;
+            playFrames(); // Restart the loop after 1-second delay
+          }, 1000);
+        }
+      }, 1000 / fps); // Adjust interval based on fps
+    };
+
+    playFrames();
+
+    return () => {
+      if (intervalRef.current) clearInterval(intervalRef.current); // Cleanup on unmount
+      context.clearRect(0, 0, canvas.width, canvas.height); // Clear canvas
+    };
+  }, [savedFrames, fps]);
 
   const handleFpsChange = (value: string) => {
     setFpsInput(value);
@@ -95,20 +121,16 @@ export default function FramePreview() {
         justifyContent: "center",
       }}
     >
-
-        <div style={{ marginTop: "10px", display: "flex", alignItems: "center" }}>
-            <button onClick={() => setIsPlaying(!isPlaying)} style={{ marginRight: "10px" }}>
-            {isPlaying ? "Pause" : "Play"}
-            </button>
-            <label>
-                FPS:
-                <input
-                    type="text"
-                    value={fpsInput}
-                    onChange={(e) => handleFpsChange(e.target.value)}
-                    style={{ marginLeft: "5px", width: "50px" }}
-                />
-            </label>
+      <div style={{ marginTop: "10px", display: "flex", alignItems: "center" }}>
+        <label>
+          FPS:
+          <input
+            type="text"
+            value={fpsInput}
+            onChange={(e) => handleFpsChange(e.target.value)}
+            style={{ marginLeft: "5px", width: "50px" }}
+          />
+        </label>
       </div>
       <canvas
         ref={canvasRef}

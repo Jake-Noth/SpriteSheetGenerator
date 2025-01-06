@@ -20,14 +20,14 @@ export default function Generator(){
 
     const leftDivContainer: CSSProperties = {
         height:"100%", 
-        width:"75%",
+        width:"60%",
         borderRight:"1px solid black"
         
     }
 
     const rightDivContainer: CSSProperties = {
         height:"100%", 
-        width:"25%",
+        width:"40%",
         display:"flex",
         flexDirection:"column"
     }

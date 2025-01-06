@@ -17,8 +17,6 @@ export default function SelectedFrames() {
                         marginBottom: "10px",
                         position: "relative",
                         cursor: "pointer",
-                        borderTop:"2px solid black",
-                        borderBottom:"2px solid black"
                     }}
                     onMouseEnter={(e: React.MouseEvent<HTMLDivElement>) => {
                         const overlay = e.currentTarget.querySelector(".overlay") as HTMLElement;
@@ -36,10 +34,14 @@ export default function SelectedFrames() {
                         src={dataUrl}
                         alt={`Frame ${key}`}
                         style={{
-                            width: "100%",
+                            width: "60%",
                             height: "auto",
                             objectFit: "contain",
                             display: "block",
+                            borderTop:"2px solid black",
+                            borderBottom:"2px solid black",
+                            borderRight:"2px solid black",
+                            borderLeft:"2px solid black"
                         }}
                     />
                     <div
@@ -48,7 +50,7 @@ export default function SelectedFrames() {
                             position: "absolute",
                             top: 0,
                             left: 0,
-                            width: "100%",
+                            width: "60%",
                             height: "100%",
                             backgroundColor: "rgba(0, 0, 0, 0.5)",
                             color: "white",
