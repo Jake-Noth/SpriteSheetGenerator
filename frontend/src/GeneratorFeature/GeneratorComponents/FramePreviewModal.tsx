@@ -12,7 +12,7 @@ export default function FramePreviewModal(props:FramePreviewModalProps){
     const timeOutRef = useRef<number | null>(null)
     const intervalRef = useRef<number | null>(null)
     const [FPS, setFPS] = useState<number>(10)
-    const [intervalCycle, setIntervalCycle] = useState(1000)
+    const [cycleInterval, setCycleInterval] = useState(1000)
 
     const {savedFrames} = useSaveCanvasStore()    
 
@@ -70,7 +70,7 @@ export default function FramePreviewModal(props:FramePreviewModalProps){
                 };
                 
                 cycleAndRenderFrames()
-                intervalRef.current = setInterval(cycleAndRenderFrames, (frameTime * framesArrayRef.current.length)+ intervalCycle + frameTime)
+                intervalRef.current = setInterval(cycleAndRenderFrames, (frameTime * framesArrayRef.current.length)+ cycleInterval + frameTime)
 
             }
         }
@@ -95,7 +95,7 @@ export default function FramePreviewModal(props:FramePreviewModalProps){
         if(intervalRef.current)
             clearInterval(intervalRef.current)
 
-        event.target.value === "" ? setIntervalCycle(1000) : setIntervalCycle(Number(event.target.value))
+        event.target.value === "" ? setCycleInterval(1000) : setCycleInterval(Number(event.target.value))
     }
 
     useEffect(()=>{
@@ -134,7 +134,7 @@ export default function FramePreviewModal(props:FramePreviewModalProps){
                 FPS: <input style={{border:"none", width:"25%", fontSize:"15px"}} defaultValue={FPS} type="number" onChange={alterFPS}/>
             </div>
             <div onClick={(event:React.MouseEvent) => event.stopPropagation()} style={{display:"flex", flexDirection:"row",justifyContent:"center", backgroundColor:"white", width:"13%", borderRadius:"15px", gap:"1%"}}>
-                Interval Cycle ms: <input style={{border:"none", width:"25%", fontSize:"15px"}} defaultValue={intervalCycle} type="number" onChange={alterIntervalCycle}/>
+                Cycle Interval ms: <input style={{border:"none", width:"25%", fontSize:"15px"}} defaultValue={cycleInterval} type="number" onChange={alterIntervalCycle}/>
             </div>
             
         </div>

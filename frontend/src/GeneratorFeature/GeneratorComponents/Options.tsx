@@ -72,7 +72,7 @@ export default function Options(props: OptionsProps) {
         </div>
       </div>
       <div style={{height:"100%", width:"50%"}}>
-          {savedFrames[0] && <button onClick={showPreviewModal}>Preview Frames</button>}
+          {Object.values(savedFrames).length > 0 && <button onClick={showPreviewModal}>Preview Frames</button>}
           {previewModal ? <FramePreviewModal exitModal={hidePreviewModal}/> : null}
       </div>
     </div>
