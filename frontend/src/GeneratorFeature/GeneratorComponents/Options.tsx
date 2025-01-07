@@ -1,6 +1,8 @@
+import { useState } from "react";
 import { useDrawCanvasStore } from "../Stores/DrawCanvasStore";
 import { drawFrame } from "../frameDrawer";
-import FramePreview from "./FramePreview";
+import FramePreviewModal from "./FramePreviewModal";
+import { useSaveCanvasStore } from "../Stores/SaveCanvasStore";
 
 interface OptionsProps {
   setFPS : React.Dispatch<React.SetStateAction<number>>
@@ -8,10 +10,12 @@ interface OptionsProps {
 }
 
 export default function Options(props: OptionsProps) {
-  
-  console.log('parent')
+
+  const [previewModal, setPreviewModal] = useState(false)
 
   const {video, canvas, slider} = useDrawCanvasStore()
+
+  const {savedFrames} = useSaveCanvasStore()
 
   const handleFPSChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     props.setFPS(Number(event.target.value));
@@ -22,8 +26,16 @@ export default function Options(props: OptionsProps) {
     }
   };
 
+  const showPreviewModal = () => {
+    setPreviewModal(true)
+  }
+
+  const hidePreviewModal = () => {
+    setPreviewModal(false)
+  }
+
   return (
-    <div style={{ height: "20%", width: "100%", display: "flex", flexDirection: "row", justifyContent: "center", alignItems: "center" }}>
+    <div style={{ height: "10%", width: "100%", display: "flex", flexDirection: "row", alignItems: "center" }}>
       <div style={{height:"100%", width:"50%"}}>
         <h3>Select Video FPS</h3>
         <div style={{ display: "flex", gap: "1rem" }}>
@@ -59,10 +71,9 @@ export default function Options(props: OptionsProps) {
           </label>
         </div>
       </div>
-
-
       <div style={{height:"100%", width:"50%"}}>
-        <FramePreview/>
+          {savedFrames[0] && <button onClick={showPreviewModal}>Preview Frames</button>}
+          {previewModal ? <FramePreviewModal exitModal={hidePreviewModal}/> : null}
       </div>
     </div>
   );

@@ -39,8 +39,8 @@ export default function SliderAndCapture(props: SliderProps) {
             if (!ctx) return;
 
             if (video) {
-                canvas.width = video?.videoWidth;
-                canvas.height = video?.videoHeight;
+                canvas.width = video.videoWidth;
+                canvas.height = video.videoHeight;
                 ctx.drawImage(video, 0, 0, canvas.width, canvas.height);
                 const imageURL = canvas.toDataURL("image/png");
                 setSavedFrames(Number(slider.value), imageURL);
@@ -60,13 +60,8 @@ export default function SliderAndCapture(props: SliderProps) {
             // Update slider value
             slider.value = String(newValue);
 
-            // Calculate the time and invoke the frame drawer
-            const frameIndex = parseInt(slider.value, 10);
-            const time = frameIndex / props.FPS;
-
-            if (video && canvas) {
-                drawFrame(video, time, canvas);
-            }
+            // Trigger the changeFrame logic to sync video playback
+            changeFrame({ target: slider } as React.ChangeEvent<HTMLInputElement>);
         }
     };
 

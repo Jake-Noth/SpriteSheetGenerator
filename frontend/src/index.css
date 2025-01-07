@@ -17,8 +17,9 @@ html, body, #root {
   appearance: none;         /* Standard appearance reset */
   background: none;         /* Remove background color */
   cursor: pointer;
-  width: 80%;
+  width: 60%;
   height: 25%;
+  
 }
 
 /* WebKit Browsers */
