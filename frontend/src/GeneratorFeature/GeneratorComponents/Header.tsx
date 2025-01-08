@@ -68,7 +68,7 @@ export default function VideoAndBack() {
                     style={{
                         height:"50%",
                         border: "2px solid black",
-                        width: "10%",
+                        width: "20%",
                         display: "flex",
                         alignItems: "center",
                         justifyContent: "center",

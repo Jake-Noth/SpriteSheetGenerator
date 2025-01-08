@@ -11,7 +11,7 @@ export default function FramePreviewModal(props:FramePreviewModalProps){
     const framesArrayRef = useRef<HTMLImageElement[]>([])
     const timeOutRef = useRef<number | null>(null)
     const intervalRef = useRef<number | null>(null)
-    const [FPS, setFPS] = useState<number>(10)
+    const [FPS, setFPS] = useState<number>(1)
     const [cycleInterval, setCycleInterval] = useState(1000)
 
     const {savedFrames} = useSaveCanvasStore()    
@@ -62,7 +62,6 @@ export default function FramePreviewModal(props:FramePreviewModalProps){
                     if(currentFrameIndex === 0){
                         if(timeOutRef.current)
                         clearTimeout(timeOutRef.current)
-                        timeOutRef.current = setTimeout(() => {ctx.drawImage(framesArrayRef.current[0], 0, 0, canvas.width, canvas.height)}, frameTime)
                         return
                     }
 
@@ -129,7 +128,7 @@ export default function FramePreviewModal(props:FramePreviewModalProps){
     return(
         <div style={{...modalStyles}} onClick={props.exitModal}>
 
-            <canvas style={{borderRadius:"20px"}} ref={handleCanvasRef} />
+            <canvas style={{borderRadius:"20px"}} ref={handleCanvasRef} onClick={(event:React.MouseEvent) => event.stopPropagation()}/>
             <div onClick={(event:React.MouseEvent) => event.stopPropagation()} style={{display:"flex", flexDirection:"row",justifyContent:"center", backgroundColor:"white", width:"8%", borderRadius:"15px", gap:"5%"}}>
                 FPS: <input style={{border:"none", width:"25%", fontSize:"15px"}} defaultValue={FPS} type="number" onChange={alterFPS}/>
             </div>

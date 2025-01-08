@@ -51,16 +51,12 @@ export default function SliderAndCapture(props: SliderProps) {
     const adjustFPS = (delta: number) => {
         const slider = document.getElementById("FPS-slider") as HTMLInputElement;
         if (slider) {
-            // Calculate new value
             let newValue = Math.max(
                 0,
                 Math.min(maxSliderValue, Number(slider.value) + delta)
-            );
-
-            // Update slider value
+            )
             slider.value = String(newValue);
 
-            // Trigger the changeFrame logic to sync video playback
             changeFrame({ target: slider } as React.ChangeEvent<HTMLInputElement>);
         }
     };
