@@ -1,4 +1,4 @@
-export const drawFrame = async (video: HTMLVideoElement, time: number, canvas: HTMLCanvasElement) => {
+export const drawFrame = async (video: HTMLVideoElement, time: number, canvas: HTMLCanvasElement, ctx: CanvasRenderingContext2D) => {
     const calculateDrawDimensions = (
         videoWidth: number,
         videoHeight: number,
@@ -30,10 +30,10 @@ export const drawFrame = async (video: HTMLVideoElement, time: number, canvas: H
 
         const canvasWidth = canvas.clientWidth;
         const canvasHeight = canvas.clientHeight;
+
         canvas.width = canvasWidth;
         canvas.height = canvasHeight;
 
-        const ctx = canvas.getContext("2d");
         if (!ctx) return;
 
         const { videoWidth, videoHeight } = video;
@@ -77,7 +77,6 @@ export const seekVideo = (video: HTMLVideoElement): Promise<void> => {
         video.addEventListener("seeked", onSeeked);
         video.addEventListener("error", onError);
 
-        // If the video is already at the desired state, resolve immediately.
         if (video.readyState >= HTMLMediaElement.HAVE_CURRENT_DATA) {
             cleanup();
             resolve();

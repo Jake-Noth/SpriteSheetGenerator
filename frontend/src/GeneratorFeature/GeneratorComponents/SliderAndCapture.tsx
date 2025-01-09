@@ -1,9 +1,10 @@
 import { useDrawCanvasStore } from "../Stores/DrawCanvasStore";
-import { drawFrame, seekVideo } from "../frameDrawer";
+import { drawFrame } from "../frameDrawer";
 import { useSaveCanvasStore } from "../Stores/SaveCanvasStore";
 
 export default function SliderAndCapture() {
-    const {video, canvas } = useDrawCanvasStore();
+
+    const {video, canvas, ctx} = useDrawCanvasStore();
     const { savedFrames, setSavedFrames } = useSaveCanvasStore();
 
     const sliderFPS = 1000;
@@ -14,43 +15,9 @@ export default function SliderAndCapture() {
         const frameIndex = parseInt(event.target.value, 10);
         const time = frameIndex / sliderFPS;
 
-        if (video && canvas) {
-            drawFrame(video,time, canvas);
+        if (video && canvas && ctx) {
+            drawFrame(video,time, canvas, ctx);
         }
-    };
-
-    const compareCanvases = (canvas1: HTMLCanvasElement, canvas2: HTMLCanvasElement, tolerance: number = 10): boolean => {
-        const ctx1 = canvas1.getContext("2d");
-        const ctx2 = canvas2.getContext("2d");
-    
-        if (!ctx1 || !ctx2) {
-            throw new Error("Failed to get canvas contexts.");
-        }
-    
-        const data1 = ctx1.getImageData(0, 0, canvas1.width, canvas1.height);
-        const data2 = ctx2.getImageData(0, 0, canvas2.width, canvas2.height);
-    
-        console.log("Canvas1 pixel data:", data1.data);
-        console.log("Canvas2 pixel data:", data2.data);
-    
-        if (canvas1.width !== canvas2.width || canvas1.height !== canvas2.height) {
-            console.log(canvas1.width)
-            console.log(canvas2.width)
-            console.log(canvas1.height)
-            console.log(canvas2.height)
-            return false; 
-
-        }
-    
-        let diffCount = 0;
-        for (let i = 0; i < data1.data.length; i++) {
-            const diff = Math.abs(data1.data[i] - data2.data[i]);
-            if (diff > tolerance) {
-                diffCount++;
-            }
-        }
-    
-        return diffCount === 0; 
     };
     
     const captureFrame = () => {
@@ -58,66 +25,89 @@ export default function SliderAndCapture() {
     
         if (slider && !(Number(slider.value) in savedFrames)) {
             const captureCanvas = document.createElement("canvas");
-            const ctx = captureCanvas.getContext("2d");
+            const captureCanvasCtx = captureCanvas.getContext("2d");
     
-            if (!ctx) return;
+            if (!captureCanvasCtx) return;
     
             if (video) {
-                // Set canvas size to match the video dimensions
                 captureCanvas.width = video.videoWidth;
                 captureCanvas.height = video.videoHeight;
-                ctx.drawImage(video, 0, 0, captureCanvas.width, captureCanvas.height);
-    
-                const imageData = ctx.getImageData(0, 0, captureCanvas.width, captureCanvas.height);
-                console.log("Captured frame pixel data:", imageData.data);
-    
+                captureCanvasCtx.drawImage(video, 0, 0, captureCanvas.width, captureCanvas.height);
                 const imageURL = captureCanvas.toDataURL("image/png");
                 setSavedFrames(Number(slider.value), imageURL);
             }
         }
     };
 
-    const findNextFrame = async () => {
-        
-        if (video) {
+    const hashCanvasData = async (canvas:HTMLCanvasElement) => {
+        if (!(canvas instanceof HTMLCanvasElement)) {
+            throw new Error("Provided variable is not a canvas element.");
+        }
+    
+        if (!ctx) {
+            throw new Error("Failed to get canvas rendering context.");
+        }
+    
+        const imageData = ctx.getImageData(0, 0, canvas.width, canvas.height);
+        const data = imageData.data;
+    
+        const buffer = new Uint8Array(data);
+    
+        const hashBuffer = await crypto.subtle.digest("SHA-256", buffer);
+    
+        return Array.from(new Uint8Array(hashBuffer))
+            .map((byte) => byte.toString(16).padStart(2, "0"))
+            .join("");
+    }
+
+    const findFrame = async (direction: number) => {
+
+        if (video && canvas && ctx) {
             const slider = document.getElementById("FPS-slider") as HTMLInputElement;
+            const curCanvasHash = await hashCanvasData(canvas);
 
-            if (canvas) {
+            while (true) {
 
-                const currCanvas = document.createElement("canvas")
+                await drawFrame(video, video.currentTime + direction * 0.01, canvas, ctx);
 
-                currCanvas.width = canvas.width
-                currCanvas.height = canvas.height
+                const newFrameHash = await hashCanvasData(canvas);
 
-                await drawFrame(video, video.currentTime, currCanvas)
-                
-                const newCanvas = document.createElement("canvas");
+                if (curCanvasHash !== newFrameHash) {
+                    slider.value = String(video.currentTime * 1000);
+                    break;
+                }
 
-                newCanvas.width = canvas.width
-                newCanvas.height = canvas.height
-                
-                while (true) {
-
-                    await drawFrame(video, video.currentTime + 0.001, newCanvas)
-
-                    const same = compareCanvases(currCanvas, newCanvas);
-
-                    console.log(same);
-
-                    if (!same) {
-                        await drawFrame(video, video.currentTime, canvas);
-                        slider.value = String(video.currentTime * 1000);
+                if (direction > 0) {
+                    if (video.currentTime === video.duration) {
+                        break;
+                    }
+                } else if (direction < 0) {
+                    if (video.currentTime === 0) {
                         break;
                     }
                 }
-                
             }
+            
         }
     };
 
-    const findPreviousFrame = () => {
-        // Implement the function for finding the previous frame if needed
+    const findNextFrame = async () => {
+        await findFrame(1)
     };
+
+    const findPreviousFrame = async () => {
+        await findFrame(-1)
+    };
+
+    const findNextTwoFrames = async () => {
+        await findFrame(1)
+        await findFrame(1)
+    }
+
+    const findPreviousTwoFrames = async () => {
+        await findFrame(-1)
+        await findFrame(-1)
+    }
 
     return (
         <div
@@ -132,12 +122,34 @@ export default function SliderAndCapture() {
             <div
                 style={{
                     height: "25%",
-                    width: "2%",
+                    width: "4.5%",
+                    border: "2px solid black",
+                    borderLeft:"none",
+                    borderTopRightRadius:"10px",
+                    borderBottomRightRadius:"10px",
+                    display: "flex",
+                    justifyContent: "center",
+                    alignItems: "center",
+                    backgroundImage: "url('/double-arrow.webp')",
+                    backgroundPosition: "center",
+                    backgroundRepeat: "no-repeat",
+                    transform: "rotate(180deg)",
+                    backgroundSize: "contain",
+                    cursor: "pointer",
+                }}
+                onClick={findPreviousTwoFrames}
+            />
+
+            <div
+                style={{
+                    height: "25%",
+                    width: "4%",
                     border: "2px solid black",
                     display: "flex",
                     justifyContent: "center",
                     alignItems: "center",
-                    backgroundImage: "url('/arrow.png')",
+                    backgroundImage: "url('/arrow-icon.png')",
+                    transform: "rotate(180deg)",
                     backgroundPosition: "center",
                     backgroundRepeat: "no-repeat",
                     backgroundSize: "contain",
@@ -145,6 +157,7 @@ export default function SliderAndCapture() {
                 }}
                 onClick={findPreviousFrame}
             />
+
             <input
                 id="FPS-slider"
                 type="range"
@@ -154,25 +167,45 @@ export default function SliderAndCapture() {
                 defaultValue={0}
                 step={1}
             />
+
             <div
                 style={{
                     height: "25%",
-                    width: "2%",
+                    width: "4%",
                     border: "2px solid black",
                     display: "flex",
                     justifyContent: "center",
                     alignItems: "center",
-                    backgroundImage: "url('/arrow.png')",
+                    backgroundImage: "url('/arrow-icon.png')",
                     backgroundPosition: "center",
                     backgroundRepeat: "no-repeat",
                     backgroundSize: "contain",
-                    transform: "rotate(180deg)",
                     cursor: "pointer",
                 }}
                 onClick={findNextFrame}
             />
-            
-            <button style={{ marginLeft: "1%" }} onClick={captureFrame}>
+
+            <div
+                style={{
+                    height: "25%",
+                    width: "4.5%",
+                    border: "2px solid black",
+                    borderLeft: "none",
+                    display: "flex",
+                    justifyContent: "center",
+                    borderTopRightRadius:"10px",
+                    borderBottomRightRadius:"10px",
+                    alignItems: "center",
+                    backgroundImage: "url('/double-arrow.webp')",
+                    backgroundPosition: "center",
+                    backgroundRepeat: "no-repeat",
+                    backgroundSize: "contain",
+                    cursor: "pointer",
+                }}
+                onClick={findNextTwoFrames}
+            />
+
+            <button style={{ marginLeft: "2%" }} onClick={captureFrame}>
                 Capture Frame
             </button>
         </div>

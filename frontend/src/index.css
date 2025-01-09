@@ -24,7 +24,7 @@ html, body, #root {
 
 /* WebKit Browsers */
 #FPS-slider::-webkit-slider-runnable-track {
-  background: #053a5f;      /* Track color */
+  background: grey;      /* Track color */
   height: 100%;             /* Increased track height */
   border-radius: 0;         /* No rounded corners */
 }
@@ -33,54 +33,11 @@ html, body, #root {
 #FPS-slider::-webkit-slider-thumb {
   -webkit-appearance: none; /* Remove default thumb styling */
   appearance: none;
-  background: #ffffff;      /* Thumb color */
-  border: 3px solid #053a5f; /* Border for contrast */
-  width: 1rem;              /* Thumb width */
-  height: 3rem;             /* Thumb height */
-  border-radius: 0;         /* No rounded corners */
+  background: black;      /* Thumb color */
+  border: 0.5px solid black; /* Border for contrast */
+  width: 2%;              /* Thumb width */
+  height: 150%;            /* Thumb height */
+  border-radius: 10px;         /* No rounded corners */
   cursor: pointer;
-  margin-top: -0.5rem;      /* Center thumb vertically */
-}
-
-/* Firefox */
-#FPS-slider::-moz-range-track {
-  background: #053a5f;      /* Track color */
-  height: 2rem;             /* Increased track height */
-  border-radius: 0;         /* No rounded corners */
-}
-
-#FPS-slider::-moz-range-thumb {
-  background: #ffffff;      /* Thumb color */
-  border: 3px solid #053a5f; /* Border for contrast */
-  width: 1rem;              /* Thumb width */
-  height: 3rem;             /* Thumb height */
-  border-radius: 0;         /* No rounded corners */
-  cursor: pointer;
-}
-
-/* Microsoft Edge / IE */
-#FPS-slider::-ms-track {
-  background: transparent;  /* Transparent to hide the default track */
-  border-color: transparent;
-  color: transparent;
-  height: 2rem;             /* Match track height */
-}
-
-#FPS-slider::-ms-thumb {
-  background: #ffffff;      /* Thumb color */
-  border: 3px solid #053a5f; /* Border for contrast */
-  width: 1rem;              /* Thumb width */
-  height: 3rem;             /* Thumb height */
-  border-radius: 0;         /* No rounded corners */
-  cursor: pointer;
-}
-
-#FPS-slider::-ms-fill-lower {
-  background: #053a5f;      /* Track color */
-  border-radius: 0;         /* No rounded corners */
-}
-
-#FPS-slider::-ms-fill-upper {
-  background: #053a5f;      /* Track color */
-  border-radius: 0;         /* No rounded corners */
+  margin-top: -2.5%;
 }

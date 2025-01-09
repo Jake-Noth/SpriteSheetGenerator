@@ -8,15 +8,15 @@ export default function VideoAndBack() {
     const [showModal, setShowModal] = useState(false);
     const [fileName, setFileName] = useState<string | null>(null);
 
-    const {canvas, setVideoSource,} = useDrawCanvasStore();
+    const {canvas, setVideoSource, ctx} = useDrawCanvasStore();
     const {resetSavedFrames} = useSaveCanvasStore()
 
     const hideModal = () => setShowModal(false);
     const showTheModal = () => setShowModal(true);
 
     const resizeHelper = (video: HTMLVideoElement) => {
-        if (canvas) {
-            drawFrame(video,video.currentTime, canvas);
+        if (canvas && ctx) {
+            drawFrame(video,video.currentTime, canvas, ctx);
         }
     };
 
@@ -28,13 +28,13 @@ export default function VideoAndBack() {
             const video = document.createElement("video");
             video.src = URL.createObjectURL(file);
     
-            if (canvas) {
+            if (canvas && ctx) {
                 resetSavedFrames();
     
                 video.addEventListener("loadeddata", () => {
                     (async () => {
                         await seekVideo(video);
-                        drawFrame(video, 0, canvas);
+                        drawFrame(video, 0, canvas, ctx);
                         setVideoSource(video);
                         window.addEventListener("resize", () => resizeHelper(video));
                     })().catch((err) => console.error("Error during video processing:", err));

@@ -4,11 +4,15 @@ import { useDrawCanvasStore } from "../Stores/DrawCanvasStore";
 
 export default function Canvas(){
 
-    const {canvas, setCanvas} = useDrawCanvasStore()
+    const {canvas, setCanvas, setCtx} = useDrawCanvasStore()
 
     const canvasCallbackRef = (canvasElement: HTMLCanvasElement | null) => {
         if (canvasElement && !canvas) {
             setCanvas(canvasElement);
+            const ctx = canvasElement.getContext("2d", {willBeReadFrequently: true}) as CanvasRenderingContext2D
+            if(ctx){
+                setCtx(ctx)
+            }
         }
     };
 
