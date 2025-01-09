@@ -8,8 +8,6 @@ import NextStage from "./GeneratorComponents/NextStage"
 
 export default function Generator(){
 
-    const [FPS, setFPS] = useState(60)
-
     const generatorContainerStyles: CSSProperties = {
         height:"100%", 
         width:"100%", 
@@ -37,8 +35,8 @@ export default function Generator(){
             <div style={{...leftDivContainer}}>
                 <Header/>
                 <Canvas/>
-                <Options setFPS={setFPS} FPS={FPS}/>
-                <SliderAndCapture FPS={FPS}/>
+                <Options/>
+                <SliderAndCapture/>
             </div>
 
             <div style={{...rightDivContainer}}>

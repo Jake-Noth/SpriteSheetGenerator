@@ -1,78 +1,134 @@
 import { useDrawCanvasStore } from "../Stores/DrawCanvasStore";
-import { drawFrame } from "../frameDrawer";
-import { useCallback } from "react";
+import { drawFrame, seekVideo } from "../frameDrawer";
 import { useSaveCanvasStore } from "../Stores/SaveCanvasStore";
 
-interface SliderProps {
-    FPS: number;
-}
-
-export default function SliderAndCapture(props: SliderProps) {
-    const { duration, video, canvas, setSlider } = useDrawCanvasStore();
+export default function SliderAndCapture() {
+    const {video, canvas } = useDrawCanvasStore();
     const { savedFrames, setSavedFrames } = useSaveCanvasStore();
 
-    const maxSliderValue = duration ? props.FPS * duration : 0;
+    const sliderFPS = 1000;
 
-    const changeFrame = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const maxSliderValue = video?.duration ? sliderFPS * video.duration : 0;
+
+    const changeFrame  = async (event: React.ChangeEvent<HTMLInputElement>) => {
         const frameIndex = parseInt(event.target.value, 10);
-        const time = frameIndex / props.FPS;
+        const time = frameIndex / sliderFPS;
 
         if (video && canvas) {
-            drawFrame(video, time, canvas);
+            drawFrame(video,time, canvas);
         }
     };
 
-    const storeSlider = useCallback(
-        (slider: HTMLInputElement | null) => {
-            if (slider) setSlider(slider);
-        },
-        [setSlider]
-    );
+    const compareCanvases = (canvas1: HTMLCanvasElement, canvas2: HTMLCanvasElement, tolerance: number = 10): boolean => {
+        const ctx1 = canvas1.getContext("2d");
+        const ctx2 = canvas2.getContext("2d");
+    
+        if (!ctx1 || !ctx2) {
+            throw new Error("Failed to get canvas contexts.");
+        }
+    
+        const data1 = ctx1.getImageData(0, 0, canvas1.width, canvas1.height);
+        const data2 = ctx2.getImageData(0, 0, canvas2.width, canvas2.height);
+    
+        console.log("Canvas1 pixel data:", data1.data);
+        console.log("Canvas2 pixel data:", data2.data);
+    
+        if (canvas1.width !== canvas2.width || canvas1.height !== canvas2.height) {
+            console.log(canvas1.width)
+            console.log(canvas2.width)
+            console.log(canvas1.height)
+            console.log(canvas2.height)
+            return false; 
 
+        }
+    
+        let diffCount = 0;
+        for (let i = 0; i < data1.data.length; i++) {
+            const diff = Math.abs(data1.data[i] - data2.data[i]);
+            if (diff > tolerance) {
+                diffCount++;
+            }
+        }
+    
+        return diffCount === 0; 
+    };
+    
     const captureFrame = () => {
         const slider = document.getElementById("FPS-slider") as HTMLInputElement;
-
+    
         if (slider && !(Number(slider.value) in savedFrames)) {
-            const canvas = document.createElement("canvas");
-            const ctx = canvas.getContext("2d");
-
+            const captureCanvas = document.createElement("canvas");
+            const ctx = captureCanvas.getContext("2d");
+    
             if (!ctx) return;
-
+    
             if (video) {
-                canvas.width = video.videoWidth;
-                canvas.height = video.videoHeight;
-                ctx.drawImage(video, 0, 0, canvas.width, canvas.height);
-                const imageURL = canvas.toDataURL("image/png");
+                // Set canvas size to match the video dimensions
+                captureCanvas.width = video.videoWidth;
+                captureCanvas.height = video.videoHeight;
+                ctx.drawImage(video, 0, 0, captureCanvas.width, captureCanvas.height);
+    
+                const imageData = ctx.getImageData(0, 0, captureCanvas.width, captureCanvas.height);
+                console.log("Captured frame pixel data:", imageData.data);
+    
+                const imageURL = captureCanvas.toDataURL("image/png");
                 setSavedFrames(Number(slider.value), imageURL);
             }
         }
     };
 
-    const adjustFPS = (delta: number) => {
-        const slider = document.getElementById("FPS-slider") as HTMLInputElement;
-        if (slider) {
-            let newValue = Math.max(
-                0,
-                Math.min(maxSliderValue, Number(slider.value) + delta)
-            )
-            slider.value = String(newValue);
+    const findNextFrame = async () => {
+        
+        if (video) {
+            const slider = document.getElementById("FPS-slider") as HTMLInputElement;
 
-            changeFrame({ target: slider } as React.ChangeEvent<HTMLInputElement>);
+            if (canvas) {
+
+                const currCanvas = document.createElement("canvas")
+
+                currCanvas.width = canvas.width
+                currCanvas.height = canvas.height
+
+                await drawFrame(video, video.currentTime, currCanvas)
+                
+                const newCanvas = document.createElement("canvas");
+
+                newCanvas.width = canvas.width
+                newCanvas.height = canvas.height
+                
+                while (true) {
+
+                    await drawFrame(video, video.currentTime + 0.001, newCanvas)
+
+                    const same = compareCanvases(currCanvas, newCanvas);
+
+                    console.log(same);
+
+                    if (!same) {
+                        await drawFrame(video, video.currentTime, canvas);
+                        slider.value = String(video.currentTime * 1000);
+                        break;
+                    }
+                }
+                
+            }
         }
+    };
+
+    const findPreviousFrame = () => {
+        // Implement the function for finding the previous frame if needed
     };
 
     return (
         <div
             style={{
-                height: "10%",
+                height: "18%",
                 width: "100%",
                 display: "flex",
                 alignItems: "center",
                 justifyContent: "center",
-                borderTop: "1px solid black",
             }}
         >
-            {/* Decrease FPS Button */}
             <div
                 style={{
                     height: "25%",
@@ -87,11 +143,10 @@ export default function SliderAndCapture(props: SliderProps) {
                     backgroundSize: "contain",
                     cursor: "pointer",
                 }}
-                onClick={() => adjustFPS(-1)} // Decrease FPS
+                onClick={findPreviousFrame}
             />
             <input
                 id="FPS-slider"
-                ref={storeSlider}
                 type="range"
                 onChange={changeFrame}
                 min={0}
@@ -99,7 +154,6 @@ export default function SliderAndCapture(props: SliderProps) {
                 defaultValue={0}
                 step={1}
             />
-            {/* Increase FPS Button */}
             <div
                 style={{
                     height: "25%",
@@ -115,8 +169,9 @@ export default function SliderAndCapture(props: SliderProps) {
                     transform: "rotate(180deg)",
                     cursor: "pointer",
                 }}
-                onClick={() => adjustFPS(1)} // Increase FPS
+                onClick={findNextFrame}
             />
+            
             <button style={{ marginLeft: "1%" }} onClick={captureFrame}>
                 Capture Frame
             </button>
