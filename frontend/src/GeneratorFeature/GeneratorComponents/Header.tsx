@@ -1,14 +1,14 @@
 import { useState } from "react";
 import BackModal from "./BackModal";
-import { drawFrame, seekVideo } from "../frameDrawer";
-import { useDrawCanvasStore } from "../Stores/DrawCanvasStore";
+import { drawFrame } from "../frameDrawer";
 import { useSaveCanvasStore } from "../Stores/SaveCanvasStore";
+import { useGeneratorComponentStore } from "../Stores/GeneratorComponentStore";
 
 export default function VideoAndBack() {
     const [showModal, setShowModal] = useState(false);
     const [fileName, setFileName] = useState<string | null>(null);
 
-    const {canvas, setVideoSource, ctx} = useDrawCanvasStore();
+    const {canvas, setVideo, ctx, slider} = useGeneratorComponentStore();
     const {resetSavedFrames} = useSaveCanvasStore()
 
     const hideModal = () => setShowModal(false);
@@ -23,23 +23,20 @@ export default function VideoAndBack() {
     const handleFile = async (event: React.ChangeEvent<HTMLInputElement>) => {
         const file = event.target.files?.[0];
     
-        if (file) {
+        if (file && canvas && ctx && slider) {
             setFileName(file.name);
             const video = document.createElement("video");
             video.src = URL.createObjectURL(file);
     
-            if (canvas && ctx) {
-                resetSavedFrames();
-    
-                video.addEventListener("loadeddata", () => {
-                    (async () => {
-                        await seekVideo(video);
-                        drawFrame(video, 0, canvas, ctx);
-                        setVideoSource(video);
-                        window.addEventListener("resize", () => resizeHelper(video));
-                    })().catch((err) => console.error("Error during video processing:", err));
-                });
-            }
+            resetSavedFrames();
+            video.addEventListener("loadeddata", () => {
+                (async () => {
+                    await drawFrame(video, 0, canvas, ctx);
+                    setVideo(video);
+                    slider.value = "0"
+                    window.addEventListener("resize", () => resizeHelper(video));
+                })().catch((err) => console.error("Error during video processing:", err));
+            });
         }
     };
     

@@ -1,10 +1,8 @@
-import { useDrawCanvasStore } from "../Stores/DrawCanvasStore";
-
-
+import { useGeneratorComponentStore } from "../Stores/GeneratorComponentStore";
 
 export default function Canvas(){
 
-    const {canvas, setCanvas, setCtx} = useDrawCanvasStore()
+    const {canvas, setCanvas, setCtx} = useGeneratorComponentStore()
 
     const canvasCallbackRef = (canvasElement: HTMLCanvasElement | null) => {
         if (canvasElement && !canvas) {

@@ -1,26 +1,26 @@
 import { create } from "zustand";
 
 type SaveCanvas = {
-  savedFrames: { [key: number]: string }; // Dictionary type with number keys and string values
-  setSavedFrames: (frame: number, url: string) => void; // Function to add/update a frame
-  resetSavedFrames: () => void; // Function to reset the saved frames
-  deleteSavedFrame: (frame: number) => void; // Function to delete a frame by its key
+  savedFrames: { [key: number]: string };
+  setSavedFrames: (frame: number, url: string) => void;
+  resetSavedFrames: () => void;
+  deleteSavedFrame: (frame: number) => void;
 };
 
 export const useSaveCanvasStore = create<SaveCanvas>((set) => ({
-  savedFrames: {}, // Initialize as an empty dictionary
+  savedFrames: {},
   setSavedFrames: (frame, url) =>
     set((state) => ({
       savedFrames: {
-        ...state.savedFrames, // Retain existing frames
-        [frame]: url, // Add or update the new frame
+        ...state.savedFrames,
+        [frame]: url,
       },
     })),
-  resetSavedFrames: () => set({ savedFrames: {} }), // Reset the saved frames
+  resetSavedFrames: () => set({ savedFrames: {} }),
   deleteSavedFrame: (frame) =>
     set((state) => {
       const newSavedFrames = { ...state.savedFrames };
-      delete newSavedFrames[frame]; // Delete the key-value pair
-      return { savedFrames: newSavedFrames }; // Update the state
+      delete newSavedFrames[frame];
+      return { savedFrames: newSavedFrames };
     }),
 }));

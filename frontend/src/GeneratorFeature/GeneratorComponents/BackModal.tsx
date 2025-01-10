@@ -1,9 +1,6 @@
 import { CSSProperties } from "react"
 import { usePageStore } from "../../PageSwitchStore";
-import { useDrawCanvasStore } from "../Stores/DrawCanvasStore";
 import { useSaveCanvasStore } from "../Stores/SaveCanvasStore";
-
-
 
 interface modalProps {
     clearModal: () => void
@@ -29,11 +26,10 @@ export default function BackModal(props:modalProps){
     };
 
     const {switchToHome} = usePageStore()
-    const {reset} = useDrawCanvasStore()
+    
     const {resetSavedFrames} = useSaveCanvasStore()
 
     const switchToHomeAndReset = () =>{
-        reset()
         resetSavedFrames()
         switchToHome()
     }

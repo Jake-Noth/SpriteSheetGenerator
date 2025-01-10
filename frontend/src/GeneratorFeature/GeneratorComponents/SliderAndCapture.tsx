@@ -1,15 +1,24 @@
-import { useDrawCanvasStore } from "../Stores/DrawCanvasStore";
 import { drawFrame } from "../frameDrawer";
+import { useGeneratorComponentStore } from "../Stores/GeneratorComponentStore";
 import { useSaveCanvasStore } from "../Stores/SaveCanvasStore";
 
 export default function SliderAndCapture() {
 
-    const {video, canvas, ctx} = useDrawCanvasStore();
+    console.log('rerender')
+
+    const {video, canvas, ctx, setSlider, slider} = useGeneratorComponentStore();
     const { savedFrames, setSavedFrames } = useSaveCanvasStore();
 
     const sliderFPS = 1000;
 
     const maxSliderValue = video?.duration ? sliderFPS * video.duration : 0;
+
+    const saveSliderRef = (sliderRef: HTMLInputElement | null) => {
+        if (slider === null && sliderRef) {
+            console.log("Setting slider ref");
+            setSlider(sliderRef);
+        }
+    };
 
     const changeFrame  = async (event: React.ChangeEvent<HTMLInputElement>) => {
         const frameIndex = parseInt(event.target.value, 10);
@@ -172,6 +181,7 @@ export default function SliderAndCapture() {
             </div>
 
             <input
+                ref={saveSliderRef}
                 id="FPS-slider"
                 type="range"
                 onChange={changeFrame}

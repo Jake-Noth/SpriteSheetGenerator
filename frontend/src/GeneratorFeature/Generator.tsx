@@ -1,4 +1,4 @@
-import { CSSProperties, useState } from "react"
+import { CSSProperties } from "react"
 import Options from "./GeneratorComponents/Options"
 import SliderAndCapture from "./GeneratorComponents/SliderAndCapture"
 import Canvas from "./GeneratorComponents/Canvas"
