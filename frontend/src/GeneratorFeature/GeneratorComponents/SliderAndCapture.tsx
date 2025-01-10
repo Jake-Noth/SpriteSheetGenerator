@@ -117,46 +117,59 @@ export default function SliderAndCapture() {
                 display: "flex",
                 alignItems: "center",
                 justifyContent: "center",
+                paddingLeft:"1%"
             }}
         >
+            
             <div
                 style={{
                     height: "25%",
                     width: "4.5%",
                     border: "2px solid black",
-                    borderLeft:"none",
-                    borderTopRightRadius:"10px",
-                    borderBottomRightRadius:"10px",
+                    borderRight: "none",
                     display: "flex",
                     justifyContent: "center",
+                    borderTopLeftRadius:"10px",
+                    borderBottomLeftRadius:"10px",
                     alignItems: "center",
-                    backgroundImage: "url('/double-arrow.webp')",
-                    backgroundPosition: "center",
-                    backgroundRepeat: "no-repeat",
-                    transform: "rotate(180deg)",
-                    backgroundSize: "contain",
                     cursor: "pointer",
                 }}
                 onClick={findPreviousTwoFrames}
-            />
+            >
+                <div style={{
+                    height:"100%", 
+                    width:"100%",
+                    backgroundImage: "url('/double-arrow.webp')",
+                    backgroundPosition: "center",
+                    backgroundRepeat: "no-repeat",
+                    backgroundSize: "contain",
+                    transform: "scaleX(-1)"
+                    }}/>
+            </div>
 
             <div
                 style={{
                     height: "25%",
                     width: "4%",
-                    border: "2px solid black",
+                    border:" 2px solid black",
                     display: "flex",
                     justifyContent: "center",
                     alignItems: "center",
+                    
+                }}
+                onClick={findPreviousFrame}
+            >
+                <div style={{
+                    height:"76%",
+                    width:"76%",
                     backgroundImage: "url('/arrow-icon.png')",
-                    transform: "rotate(180deg)",
                     backgroundPosition: "center",
                     backgroundRepeat: "no-repeat",
                     backgroundSize: "contain",
                     cursor: "pointer",
-                }}
-                onClick={findPreviousFrame}
-            />
+                    transform:"scaleX(-1)"
+                }}/>
+            </div>
 
             <input
                 id="FPS-slider"
@@ -172,38 +185,50 @@ export default function SliderAndCapture() {
                 style={{
                     height: "25%",
                     width: "4%",
-                    border: "2px solid black",
+                    border:" 2px solid black",
                     display: "flex",
                     justifyContent: "center",
                     alignItems: "center",
+                    
+                }}
+                onClick={findNextFrame}
+            >
+                <div style={{
+                    height:"76%",
+                    width:"76%",
                     backgroundImage: "url('/arrow-icon.png')",
                     backgroundPosition: "center",
                     backgroundRepeat: "no-repeat",
                     backgroundSize: "contain",
                     cursor: "pointer",
-                }}
-                onClick={findNextFrame}
-            />
+                }}/>
+            </div>
 
             <div
                 style={{
                     height: "25%",
                     width: "4.5%",
                     border: "2px solid black",
-                    borderLeft: "none",
+                    borderLeft:"none",
                     display: "flex",
                     justifyContent: "center",
                     borderTopRightRadius:"10px",
                     borderBottomRightRadius:"10px",
                     alignItems: "center",
+                    cursor: "pointer",
+                    marginRight:"1%"
+                }}
+                onClick={findNextTwoFrames}
+            >
+                <div style={{
+                    height:"100%", 
+                    width:"100%",
                     backgroundImage: "url('/double-arrow.webp')",
                     backgroundPosition: "center",
                     backgroundRepeat: "no-repeat",
                     backgroundSize: "contain",
-                    cursor: "pointer",
-                }}
-                onClick={findNextTwoFrames}
-            />
+                    }}/>
+            </div>
 
             <button style={{ marginLeft: "2%" }} onClick={captureFrame}>
                 Capture Frame
