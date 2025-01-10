@@ -12,11 +12,11 @@ type GeneratorComponents = {
     setCtx: (ctx: CanvasRenderingContext2D | null) => void;
 
     slider: HTMLInputElement | null;
-    setSlider: (slider : HTMLInputElement | null) => void;
+    setSlider: (slider: HTMLInputElement | null) => void;
 };
 
 export const useGeneratorComponentStore = create<GeneratorComponents>((set) => ({
-    
+
     canvas: null,
     setCanvas: (canvas: HTMLCanvasElement | null) => set({ canvas }),
 
@@ -27,5 +27,5 @@ export const useGeneratorComponentStore = create<GeneratorComponents>((set) => (
     setCtx: (ctx: CanvasRenderingContext2D | null) => set({ ctx }),
 
     slider: null,
-    setSlider: (slider : HTMLInputElement | null) => set({ slider }),
+    setSlider: (slider: HTMLInputElement | null) => set({ slider }),
 }));

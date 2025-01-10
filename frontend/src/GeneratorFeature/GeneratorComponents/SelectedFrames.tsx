@@ -26,7 +26,7 @@ export default function SelectedFrames() {
                         const overlay = e.currentTarget.querySelector(".overlay") as HTMLElement;
                         if (overlay) overlay.style.opacity = "0";
                     }}
-                    onClick={()=>{
+                    onClick={() => {
                         deleteSavedFrame(Number(key))
                     }}
                 >
@@ -38,10 +38,10 @@ export default function SelectedFrames() {
                             height: "auto",
                             objectFit: "contain",
                             display: "block",
-                            borderTop:"2px solid black",
-                            borderBottom:"2px solid black",
-                            borderRight:"2px solid black",
-                            borderLeft:"2px solid black"
+                            borderTop: "2px solid black",
+                            borderBottom: "2px solid black",
+                            borderRight: "2px solid black",
+                            borderLeft: "2px solid black"
                         }}
                     />
                     <div

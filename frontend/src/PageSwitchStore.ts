@@ -1,9 +1,9 @@
-import  { create } from "zustand";
+import { create } from "zustand";
 
 type PageAlter = {
   page: string;
   switchToGeneratorPage: () => void;
-  switchToHome:() => void;
+  switchToHome: () => void;
 };
 
 export const usePageStore = create<PageAlter>((set) => ({

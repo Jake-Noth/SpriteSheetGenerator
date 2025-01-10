@@ -1,18 +1,18 @@
 import Home from "./HomePageComponents/Home"
 import Generator from "./GeneratorFeature/Generator"
-import { usePageStore} from './PageSwitchStore'
+import { usePageStore } from './PageSwitchStore'
 
 function App() {
 
   const { page } = usePageStore()
-  
-  switch(page){
+
+  switch (page) {
     case "home":
-      return(<Home/>)
+      return (<Home />)
     case "generator":
-      return(<Generator/>)
+      return (<Generator />)
     default:
-      return(<Home/>)
+      return (<Home />)
   }
 }
 
