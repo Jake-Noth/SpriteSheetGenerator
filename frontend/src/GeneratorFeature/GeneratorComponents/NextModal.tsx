@@ -1,12 +1,73 @@
+import { useSaveCanvasStore } from "../Stores/SaveCanvasStore";
+
 interface NextModalProps {
     closeModal: () => void;
+    showLoading: (UUID: string) => void
 }
 
 export default function NextModal(props: NextModalProps) {
 
+    const { savedFrames } = useSaveCanvasStore()
+
     const handleClick = (event: React.MouseEvent) => {
         event.stopPropagation();
     };
+
+    const processFrames = async () => {
+        if (Object.keys(savedFrames).length > 0) {
+            const UUID = crypto.randomUUID();
+
+            const formData = new FormData();
+
+            formData.append('UUID', UUID);
+
+            for (const [key, dataUrl] of Object.entries(savedFrames)) {
+                const blob = dataURLToBlob(dataUrl);
+                formData.append('frames', blob, `${key}.png`);
+            }
+
+            try {
+                const response = await fetch('http://localhost:8000/process', {
+                    method: 'POST',
+                    body: formData,
+                });
+
+                if (!response.ok) {
+                    throw new Error(`HTTP error! Status: ${response.status}`);
+                }
+
+                const responseData = await response.json();
+                console.log('Response from server:', responseData);
+                props.showLoading(UUID)
+                return responseData;
+            } catch (error) {
+                console.error('Error during upload:', error);
+            }
+        } else {
+            console.log('No frames to process.');
+        }
+    };
+
+    const dataURLToBlob = (dataUrl: string) => {
+        const [header, base64] = dataUrl.split(',');
+        const match = header.match(/:(.*?);/);
+
+        if (!match) {
+            throw new Error('Invalid Data URL format');
+        }
+
+        const mime = match[1];
+        const binary = atob(base64);
+        const array = new Uint8Array(binary.length);
+
+        for (let i = 0; i < binary.length; i++) {
+            array[i] = binary.charCodeAt(i);
+        }
+
+        return new Blob([array], { type: mime });
+    };
+
+
 
     return (
         <div
@@ -75,6 +136,7 @@ export default function NextModal(props: NextModalProps) {
                         }}
                         onMouseEnter={(e) => (e.target as HTMLButtonElement).style.backgroundColor = "#0056b3"}
                         onMouseLeave={(e) => (e.target as HTMLButtonElement).style.backgroundColor = "#007BFF"}
+                        onClick={processFrames}
                     >
                         Continue
                     </button>

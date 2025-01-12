@@ -6,7 +6,7 @@ import os
 post_router = APIRouter()
 
 @post_router.post("/process")
-async def recieve_images(
+async def receive_images(
     UUID: str = Form(...),
     frames: List[UploadFile] = File(...)
 ):
@@ -26,7 +26,5 @@ async def recieve_images(
             f.write(await frame.read())
 
     process_UUID(UUID)
-
     
-
     return {"message": f"Successfully uploaded {len(frames)} frames for UUID: {UUID}"}

@@ -31,8 +31,9 @@ export default function SliderAndOptions() {
     };
 
     const changeFrame = async (event: React.ChangeEvent<HTMLInputElement>) => {
+
         const frameIndex = parseInt(event.target.value, 10);
-        const time = frameIndex / FPS.current;
+        const time = frameIndex / 1000;
 
         if (video && canvas && ctx) {
             drawFrame(video, time, canvas, ctx);
@@ -40,7 +41,6 @@ export default function SliderAndOptions() {
     };
 
     const captureFrame = () => {
-        const slider = document.getElementById("FPS-slider") as HTMLInputElement;
 
         if (slider && !(Number(slider.value) in savedFrames)) {
             const captureCanvas = document.createElement("canvas");
@@ -55,6 +55,8 @@ export default function SliderAndOptions() {
                 const imageURL = captureCanvas.toDataURL("image/png");
                 setSavedFrames(Number(slider.value), imageURL);
             }
+
+            console.log(savedFrames)
         }
     };
 
@@ -106,7 +108,6 @@ export default function SliderAndOptions() {
                     }
                 }
             }
-
         }
     };
 
@@ -148,24 +149,117 @@ export default function SliderAndOptions() {
                 }}
             >
 
-                <div style={{ display: "flex", height: "50%", width: "100%", flexDirection: "row", justifyContent: "space-between", alignItems: "center" }}>
-
-                    <div style={{ display: "flex", height: "100%", width: "25%", justifyContent: "center", alignItems: "center" }}>
-                        <button onClick={resetSavedFrames}>Clear Frames</button>
+                <div
+                    style={{
+                        display: "flex",
+                        height: "50%",
+                        width: "100%",
+                        flexDirection: "row",
+                        justifyContent: "space-between",
+                        alignItems: "center",
+                        padding: "10px",
+                    }}
+                >
+                    <div
+                        style={{
+                            display: "flex",
+                            height: "100%",
+                            width: "25%",
+                            justifyContent: "center",
+                            alignItems: "center",
+                        }}
+                    >
+                        <button
+                            onClick={resetSavedFrames}
+                            style={{
+                                backgroundColor: "#333",
+                                color: "#fff",
+                                border: "1px solid #444",
+                                padding: "10px 20px",
+                                borderRadius: "5px",
+                                cursor: "pointer",
+                                transition: "all 0.2s ease",
+                            }}
+                        >
+                            Clear Frames
+                        </button>
                     </div>
 
-                    <div style={{ display: "flex", height: "100%", width: "25%", justifyContent: "center", alignItems: "center" }}>
-                        FPS<input onChange={changeFPS} type="number" style={{ width: "25%" }} defaultValue={240} />
+                    <div
+                        style={{
+                            display: "flex",
+                            height: "100%",
+                            width: "25%",
+                            justifyContent: "center",
+                            alignItems: "center",
+                        }}
+                    >
+                        FPS
+                        <input
+                            onChange={changeFPS}
+                            type="number"
+                            style={{
+                                width: "25%",
+                                backgroundColor: "#333",
+                                color: "#fff",
+                                border: "1px solid #444",
+                                borderRadius: "5px",
+                                padding: "5px",
+                                textAlign: "center",
+                            }}
+                            defaultValue={240}
+                        />
                     </div>
 
-                    <div style={{ display: "flex", height: "100%", width: "25%", justifyContent: "center", alignItems: "center" }}>
-                        <button onClick={() => setShowModal(true)}>Preview Frames</button>
+                    <div
+                        style={{
+                            display: "flex",
+                            height: "100%",
+                            width: "25%",
+                            justifyContent: "center",
+                            alignItems: "center",
+                        }}
+                    >
+                        <button
+                            onClick={() => setShowModal(true)}
+                            style={{
+                                backgroundColor: "#333",
+                                color: "#fff",
+                                border: "1px solid #444",
+                                padding: "10px 20px",
+                                borderRadius: "5px",
+                                cursor: "pointer",
+                                transition: "all 0.2s ease",
+                            }}
+                        >
+                            Preview Frames
+                        </button>
                     </div>
 
-                    <div style={{ display: "flex", height: "100%", width: "25%", justifyContent: "center", alignItems: "center" }}>
-                        <button onClick={captureFrame} >Select Frame</button>
+                    <div
+                        style={{
+                            display: "flex",
+                            height: "100%",
+                            width: "25%",
+                            justifyContent: "center",
+                            alignItems: "center",
+                        }}
+                    >
+                        <button
+                            onClick={captureFrame}
+                            style={{
+                                backgroundColor: "#333",
+                                color: "#fff",
+                                border: "1px solid #444",
+                                padding: "10px 20px",
+                                borderRadius: "5px",
+                                cursor: "pointer",
+                                transition: "all 0.2s ease",
+                            }}
+                        >
+                            Select Frame
+                        </button>
                     </div>
-
                 </div>
 
                 <div style={{ height: "50%", width: "100%", display: "flex", flexDirection: "row", borderTop: "0.5px solid black", justifyContent: "center", alignItems: "center" }}>
@@ -174,7 +268,7 @@ export default function SliderAndOptions() {
                         style={{
                             height: "40%",
                             width: "4.5%",
-                            border: "2px solid black",
+                            border: "0.5px solid black",
                             borderRight: "none",
                             display: "flex",
                             justifyContent: "center",
@@ -200,7 +294,7 @@ export default function SliderAndOptions() {
                         style={{
                             height: "40%",
                             width: "4%",
-                            border: " 2px solid black",
+                            border: " 0.5px solid black",
                             display: "flex",
                             justifyContent: "center",
                             alignItems: "center",
@@ -235,7 +329,7 @@ export default function SliderAndOptions() {
                         style={{
                             height: "40%",
                             width: "4%",
-                            border: " 2px solid black",
+                            border: " 0.5px solid black",
                             display: "flex",
                             justifyContent: "center",
                             alignItems: "center",
@@ -258,7 +352,7 @@ export default function SliderAndOptions() {
                         style={{
                             height: "40%",
                             width: "4.5%",
-                            border: "2px solid black",
+                            border: "0.5px solid black",
                             borderLeft: "none",
                             display: "flex",
                             justifyContent: "center",
